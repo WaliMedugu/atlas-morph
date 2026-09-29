@@ -63,7 +63,18 @@ how many tema menmmebrs and are there specific requirements"
 Detailed official NAIC 2026 Academia & Research Track team requirements: 2-5 members (Nigerian citizens, team lead enrolled/employed at accredited Nigerian university, at least 1 student/postgrad, 1 faculty supervisor, and an official HOD institutional endorsement letter). Outlined the optimal 4-member operational team role distribution tailored for ATLAS-MORPH (Systems Lead, NLP Specialist, Full-Stack UI/Demo Lead, and Faculty Supervisor).
 
 --------------------------------------------------------------------------------
-11. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+11. USER PROMPT INPUT (Follow-up 5)
+--------------------------------------------------------------------------------
+"make a short list of all the things we need
+short and simple"
+
+--------------------------------------------------------------------------------
+12. SHORT AGENT RESPONSE (Follow-up 5)
+--------------------------------------------------------------------------------
+Provided a concise, grouped 4-part checklist of essential requirements for the NAIC 2026 submission: Team & Paperwork (2-5 members, HOD letter), Technical Build (Python package + N-ATLaS integration), Demonstration & UI (interactive web playground + 3-5 min video), and Real-World Validation (2+ external beta testers).
+
+--------------------------------------------------------------------------------
+13. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
