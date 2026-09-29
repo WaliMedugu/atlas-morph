@@ -52,7 +52,18 @@ Confirmed selection of Idea 1 (ATLAS-MORPH: Sovereign Diacritic-Aware Tokenizati
 Conducted deep-research into the two core inspirations behind ATLAS-MORPH: (1) Yvan Carre's 1st-place solution in the 2025 Buzuzu-Mavi InkubaLM Challenge (using low-resource calibrated quantization, adapter heads, and distillation to achieve a 75% size reduction without destroying African grammar), and (2) Team Upaya's "Birbal" (NeurIPS 2023 LLM Efficiency Challenge Champion, arXiv:2403.02247, beating 14B models on 1 RTX 4090 via 200k curated data, QLoRA, and FlashAttention). Combined these with empirical "Tokenization Tax" / "afri-fertility" research on Yoruba/Hausa/Igbo to construct ATLAS-MORPH's technical architecture.
 
 --------------------------------------------------------------------------------
-9. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+9. USER PROMPT INPUT (Follow-up 4)
+--------------------------------------------------------------------------------
+"Now... lets plan the team
+how many tema menmmebrs and are there specific requirements"
+
+--------------------------------------------------------------------------------
+10. SHORT AGENT RESPONSE (Follow-up 4)
+--------------------------------------------------------------------------------
+Detailed official NAIC 2026 Academia & Research Track team requirements: 2-5 members (Nigerian citizens, team lead enrolled/employed at accredited Nigerian university, at least 1 student/postgrad, 1 faculty supervisor, and an official HOD institutional endorsement letter). Outlined the optimal 4-member operational team role distribution tailored for ATLAS-MORPH (Systems Lead, NLP Specialist, Full-Stack UI/Demo Lead, and Faculty Supervisor).
+
+--------------------------------------------------------------------------------
+11. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
