@@ -219,7 +219,18 @@ Streamlined `FACULTY_SUPERVISOR_BRIEF.md`: removed Section 4, condensed all sect
 Compiled `FACULTY_SUPERVISOR_BRIEF.md` into an executive-styled, print-perfect PDF document (`FACULTY_SUPERVISOR_BRIEF.pdf`) featuring custom typography, FMCIDE/NITDA emerald-navy visual theme, 3-stage pipeline architecture cards, structured tables, and clean roster grid.
 
 --------------------------------------------------------------------------------
-39. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+39. USER PROMPT INPUT (Follow-up 19)
+--------------------------------------------------------------------------------
+"dont give roles or titles or mention anyone's department but the faculty supervisor
+keep it looking like the md files as much as possible, black bg white text too"
+
+--------------------------------------------------------------------------------
+40. SHORT AGENT RESPONSE (Follow-up 19)
+--------------------------------------------------------------------------------
+Updated `FACULTY_SUPERVISOR_BRIEF.md` and regenerated `FACULTY_SUPERVISOR_BRIEF.pdf` with a sleek dark-mode markdown aesthetic (black `#0d1117` background, crisp light text, code blocks, dark tables). Stripped student roles and departments, only listing Mrs. Hauwa Ibrahim Aminu's department as supervisor, with clean member names (Medugu Wali, Mutmainnah Magaji, Ojo Timothy).
+
+--------------------------------------------------------------------------------
+41. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
