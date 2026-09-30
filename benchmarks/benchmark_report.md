@@ -1,7 +1,7 @@
 # ATLAS-MORPH: Empirical Benchmark Report
 **Target Model:** `NCAIR1/N-ATLaS` (Llama-3 8B Sovereign Architecture)  
 **Evaluation Standard:** African Language Tokenization Tax & Fertility Index (arXiv:2606.24460)  
-**Generated:** 2026-09-30 21:13:55 WAT  
+**Generated:** 2026-09-30 21:48:14 WAT  
 
 ---
 
@@ -9,10 +9,10 @@
 
 | Language | Raw N-ATLaS Fertility (Tokens/Word) | ATLAS-MORPH Fertility (Tokens/Word) | Fertility Reduction | Token Savings (%) | KV-Cache VRAM Savings | Throughput Acceleration |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Yorùbá (`yor`)** | **2.675** | **2.261** | **-0.414** | **15.4%** | **75% (4-bit)** | **1.18x** |
-| **Hausa (`hau`)** | **2.838** | **2.516** | **-0.322** | **11.3%** | **75% (4-bit)** | **1.13x** |
-| **Igbo (`ibo`)** | **2.483** | **2.228** | **-0.256** | **9.8%** | **75% (4-bit)** | **1.11x** |
-| **English (`eng`)** | 3.392 | 2.834 | -0.558 | 16.4% | 75% (4-bit) | 1.2x |
+| **Yorùbá (`yor`)** | **2.673** | **2.283** | **-0.391** | **14.4%** | **75% (4-bit)** | **1.17x** |
+| **Hausa (`hau`)** | **2.809** | **2.435** | **-0.374** | **13.1%** | **75% (4-bit)** | **1.15x** |
+| **Igbo (`ibo`)** | **2.438** | **2.201** | **-0.237** | **9.5%** | **75% (4-bit)** | **1.11x** |
+| **English (`eng`)** | 3.431 | 2.882 | -0.549 | 15.9% | 75% (4-bit) | 1.19x |
 
 ---
 
