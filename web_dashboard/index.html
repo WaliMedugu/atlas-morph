@@ -112,34 +112,34 @@
                 </div>
 
                 <div class="split-view">
-                    <!-- Standard N-ATLaS Column -->
+                    <!-- Standard N-ATLaS Column (Control) -->
                     <div class="view-column raw-col">
                         <div class="col-header">
-                            <span class="col-title text-rose">Standard Llama-3 / N-ATLaS</span>
+                            <span class="col-title text-rose">CONTROL: Standard Llama-3 / N-ATLaS</span>
                             <span class="col-badge badge-warning" id="rawTokenBadge">0 Tokens</span>
                         </div>
                         <div class="stat-pills">
                             <div class="stat-pill"><span class="lbl">Fertility:</span> <strong id="rawFertility">0.00</strong></div>
-                            <div class="stat-pill"><span class="lbl">VRAM Est:</span> <strong id="rawVram">0.0 MB</strong></div>
+                            <div class="stat-pill"><span class="lbl">VRAM (16-Bit):</span> <strong id="rawVram">0.0 MB</strong></div>
                             <div class="stat-pill"><span class="lbl">Latency:</span> <strong id="rawLatency">0 ms</strong></div>
                         </div>
                         <div class="token-container" id="rawTokensList">
                             <span class="placeholder-text">Tokens will appear here...</span>
                         </div>
                         <div class="col-footer text-rose">
-                            ⚠️ Byte-fallback fragmentation on combining diacritics
+                            ⚠️ Decomposes into raw UTF-8 byte tokens (&lt;byte_xx&gt;)
                         </div>
                     </div>
 
-                    <!-- ATLAS-MORPH Column -->
+                    <!-- ATLAS-MORPH Column (Treatment) -->
                     <div class="view-column opt-col">
                         <div class="col-header">
-                            <span class="col-title text-emerald">ATLAS-MORPH Engine</span>
+                            <span class="col-title text-emerald">TREATMENT: ATLAS-MORPH Engine</span>
                             <span class="col-badge badge-success" id="optTokenBadge">0 Tokens</span>
                         </div>
                         <div class="stat-pills">
                             <div class="stat-pill"><span class="lbl">Fertility:</span> <strong id="optFertility">0.00</strong></div>
-                            <div class="stat-pill"><span class="lbl">4-Bit VRAM:</span> <strong id="optVram">0.0 MB</strong></div>
+                            <div class="stat-pill"><span class="lbl">VRAM (4-Bit):</span> <strong id="optVram">0.0 MB</strong></div>
                             <div class="stat-pill"><span class="lbl">Latency:</span> <strong id="optLatency">0 ms</strong></div>
                         </div>
                         <div class="token-container" id="optTokensList">

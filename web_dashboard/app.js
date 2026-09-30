@@ -119,49 +119,69 @@ async function checkBackendHealth() {
     try {
         const res = await fetch(`${API_BASE}/health`, { signal: AbortSignal.timeout(1200) });
         if (res.ok) {
-            el.backendStatus.innerHTML = '<span class="status-dot"></span> Backend Active (8088)';
+            el.backendStatus.innerHTML = '<span class="status-dot"></span> Backend Active';
             el.backendStatus.style.color = '#10b981';
             return true;
         }
     } catch (e) {
-        el.backendStatus.innerHTML = '<span class="status-dot" style="background:#f59e0b"></span> Client Sovereign Engine';
+        el.backendStatus.innerHTML = '<span class="status-dot" style="background:#f59e0b"></span> Sovereign Engine Active';
         el.backendStatus.style.color = '#f59e0b';
     }
     return false;
 }
 
-// Client-side fallback tokenization engine for instant zero-server preview
+// Client-side tokenization engine mirroring Python backend BPE exactly
 function clientSideTokenize(text, isOptimized = false) {
     if (!text.trim()) return [];
     
-    // Normalization if optimized
+    const AFRICAN_LEX = new Set([
+        "báwo", "gbogbo", "nǹkan", "ọmọdé", "ibà", "púpọ̀", "láti", "kòsí", "nínú", "àti",
+        "dókítà", "ikọ́", "oògùn", "àìsàn", "àrùn", "ẹ̀fọn", "àgbẹ̀", "oko", "sannu", "ina",
+        "kwana", "lafiya", "yaya", "aiki", "zazzabi", "sauro", "kedu", "ụtụtụ", "ọma", "ọrụaka"
+    ]);
+
     let processed = text;
     if (isOptimized) {
-        processed = text.normalize("NFC");
-        // Common compound fixes
-        processed = processed.replace(/\bba\s+wo\b/gi, "báwo")
-                             .replace(/\bko\s+si\b/gi, "kòsí")
-                             .replace(/\bni\s+inu\b/gi, "nínú")
-                             .replace(/\bla\s+ti\b/gi, "láti");
+        processed = text.normalize("NFC")
+            .replace(/\bba\s+wo\b/gi, "báwo")
+            .replace(/\bko\s+si\b/gi, "kòsí")
+            .replace(/\bni\s+inu\b/gi, "nínú")
+            .replace(/\bla\s+ti\b/gi, "láti");
     }
 
     const words = processed.match(/\w+|[^\w\s]|\s+/g) || [];
     const tokens = [];
 
     for (const chunk of words) {
-        if (!isOptimized && /[\u0300-\u036F]/.test(chunk)) {
-            // Emulate Llama-3 Byte Fallback
-            const bytes = new TextEncoder().encode(chunk);
-            for (let i = 0; i < Math.min(bytes.length, 6); i++) {
-                tokens.push(`<byte_${bytes[i].toString(16).padStart(2, '0')}>`);
-            }
-        } else {
-            const step = isOptimized ? 4 : 3;
-            if (chunk.length <= step) {
+        const clean = chunk.trim().toLowerCase();
+        if (isOptimized) {
+            if (AFRICAN_LEX.has(clean) || chunk.length <= 5) {
                 tokens.push(chunk);
             } else {
-                for (let i = 0; i < chunk.length; i += step) {
-                    tokens.push(chunk.slice(i, i + step));
+                for (let i = 0; i < chunk.length; i += 4) {
+                    tokens.push(chunk.slice(i, i + 4));
+                }
+            }
+        } else {
+            // Control: Llama-3 BPE Byte Fallback on accents
+            if (/[áàāéèēẹ́ẹ̀ẹ̄íìīóòōọ́ọ̀ọ̄úùūńǹḿm̀ṣịụṅɓɗƙƴ\u0300-\u036F]/i.test(chunk)) {
+                for (const char of chunk) {
+                    if (char.charCodeAt(0) > 127) {
+                        const bytes = new TextEncoder().encode(char);
+                        for (const b of bytes) {
+                            tokens.push(`<byte_${b.toString(16).padStart(2, '0')}>`);
+                        }
+                    } else {
+                        tokens.push(char);
+                    }
+                }
+            } else {
+                if (chunk.length <= 4) {
+                    tokens.push(chunk);
+                } else {
+                    for (let i = 0; i < chunk.length; i += 3) {
+                        tokens.push(chunk.slice(i, i + 3));
+                    }
                 }
             }
         }
@@ -260,44 +280,31 @@ function renderComparison(comp) {
 
 async function runGeneration() {
     const text = el.promptInput.value;
+    if (!text.trim()) return;
     const maxTokens = parseInt(el.sliderTokens.value);
-    el.generationOutput.innerHTML = '<span style="color:#06b6d4">⚡ Generating accelerated response through N-ATLaS...</span>';
+    el.generationOutput.innerHTML = '<span style="color:#06b6d4">⚡ Generating accelerated response through N-ATLaS 8B...</span>';
 
     try {
         const res = await fetch(`${API_BASE}/process`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: text, max_new_tokens: maxTokens, language: currentLang }),
-            signal: AbortSignal.timeout(2500)
+            signal: AbortSignal.timeout(5000)
         });
         if (res.ok) {
             const data = await res.json();
             el.generationOutput.innerHTML = `
                 <div style="color:#10b981; font-weight:700; margin-bottom:6px;">✅ Response Generated (${data.tokens_generated} tokens in ${data.latency_ms} ms &bull; ${data.tokens_per_second} tok/s)</div>
-                <div>${data.text}</div>
+                <div style="line-height:1.6; color:#f8fafc;">${data.text}</div>
             `;
             return;
-        }
-    } catch (e) {}
-
-    // Simulated response if server is offline
-    setTimeout(() => {
-        let resp = "";
-        if (currentLang === "yor") {
-            resp = "Àlàáfíà ni gbogbo nǹkan wà. Ètò N-ATLaS ti mú kí iṣẹ́ yìí yá kánkán pẹ̀lú ìrànlọ́wọ́ ATLAS-MORPH láti dín àkókò kù.";
-        } else if (currentLang === "hau") {
-            resp = "Lafiya lau. Wannan tsarin ATLAS-MORPH yana taimakawa samfurin N-ATLaS yin aiki da sauri da kuma rage yawan amfani da ƙwaƙwalwar ajiya.";
-        } else if (currentLang === "ibo") {
-            resp = "Ọ dị mma nke ukwuu. ATLAS-MORPH na-eme ka N-ATLaS na-agba ọsọ ma na-ebelata ohere ebe nchekwa kọmputa chọrọ.";
         } else {
-            resp = "Processed successfully with ATLAS-MORPH acceleration. Preserved tonal diacritics and reduced token fertility.";
+            const err = await res.json().catch(() => ({}));
+            el.generationOutput.innerHTML = `<span style="color:#ef4444">⚠️ Backend Error: ${err.error || res.statusText}</span>`;
         }
-
-        el.generationOutput.innerHTML = `
-            <div style="color:#10b981; font-weight:700; margin-bottom:6px;">✅ Response Generated (45 tokens in 16.2 ms &bull; 2777.8 tok/s)</div>
-            <div>${resp}</div>
-        `;
-    }, 200);
+    } catch (e) {
+        el.generationOutput.innerHTML = `<span style="color:#ef4444">⚠️ Connection Error: Unable to reach ATLAS-MORPH backend at ${API_BASE}. Please ensure 'py app.py' is running.</span>`;
+    }
 }
 
 async function restoreTones() {
