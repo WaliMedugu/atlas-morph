@@ -96,7 +96,18 @@ Researched Hauwa Ibrahim Aminu's academic background (Computer Science Lecturer 
 Drafted a tailored, high-converting WhatsApp message formatted specifically for mobile reading (concise, respectful, clearly highlighting the NAIC 2026 challenge, the ATLAS-MORPH N-ATLaS acceleration build, and the low-friction faculty supervisor role).
 
 --------------------------------------------------------------------------------
-17. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+17. USER PROMPT INPUT (Follow-up 8)
+--------------------------------------------------------------------------------
+"Hmmm.. wait oh.. how will we actually build this?
+also.. how do i get the hod to make the doc"
+
+--------------------------------------------------------------------------------
+18. SHORT AGENT RESPONSE (Follow-up 8)
+--------------------------------------------------------------------------------
+Deconstructed the concrete 4-part software engineering build for ATLAS-MORPH (Unicode normalizer, virtual byte-merge token caching, 4-bit KV caching model loader, and interactive web speedometer dashboard). Provided the exact low-friction protocol for securing the HOD institutional endorsement letter in a Nigerian university setting (pre-filling the template, leveraging the faculty supervisor, and departmental secretary routing).
+
+--------------------------------------------------------------------------------
+19. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
