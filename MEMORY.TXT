@@ -196,7 +196,20 @@ She asked me to send her a summary doc of all the things she will need to know"
 Created `FACULTY_SUPERVISOR_BRIEF.md`, a formal, high-impact executive briefing document specifically tailored for Mrs. Hauwa Ibrahim Aminu. It details the project overview, competition framework, technical innovation, low-friction supervisor role, academic/institutional benefits for Nile University, the 7 portal submission components, and the HOD endorsement step.
 
 --------------------------------------------------------------------------------
-35. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+35. USER PROMPT INPUT (Follow-up 17)
+--------------------------------------------------------------------------------
+"remove section 4
+shorten the general lenght of the text
+team roster is Mutmainnah Magaji, Ojo Timothy, and Medugu Wali (Lead)
+dont use any fill the blanks thingys"
+
+--------------------------------------------------------------------------------
+36. SHORT AGENT RESPONSE (Follow-up 17)
+--------------------------------------------------------------------------------
+Streamlined `FACULTY_SUPERVISOR_BRIEF.md`: removed Section 4, condensed all sections for rapid reading, populated the complete official team roster (Medugu Wali as Lead, Mutmainnah Magaji, Ojo Timothy, and Mrs. Hauwa Ibrahim Aminu as Faculty Supervisor), and eliminated all placeholder brackets.
+
+--------------------------------------------------------------------------------
+37. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
