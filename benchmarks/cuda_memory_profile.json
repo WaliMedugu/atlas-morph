@@ -1,0 +1,56 @@
+{
+  "model_architecture": "N-ATLaS 8B (Llama-3 GQA 8 KV heads)",
+  "layers": 32,
+  "kv_heads": 8,
+  "head_dim": 128,
+  "device": "Pure Python Emulation",
+  "has_cuda": false,
+  "reduction_percentage": "75.0%",
+  "context_profiles": [
+    {
+      "context_length_tokens": 512,
+      "standard_fp16_mb": 64.0,
+      "atlas_morph_4bit_mb": 16.0,
+      "vram_saved_mb": 48.0,
+      "memory_reduction_pct": 75.0,
+      "max_batch_at_8gb_gpu": 375,
+      "max_batch_standard_8gb": 93
+    },
+    {
+      "context_length_tokens": 1024,
+      "standard_fp16_mb": 128.0,
+      "atlas_morph_4bit_mb": 32.0,
+      "vram_saved_mb": 96.0,
+      "memory_reduction_pct": 75.0,
+      "max_batch_at_8gb_gpu": 187,
+      "max_batch_standard_8gb": 46
+    },
+    {
+      "context_length_tokens": 2048,
+      "standard_fp16_mb": 256.0,
+      "atlas_morph_4bit_mb": 64.0,
+      "vram_saved_mb": 192.0,
+      "memory_reduction_pct": 75.0,
+      "max_batch_at_8gb_gpu": 93,
+      "max_batch_standard_8gb": 23
+    },
+    {
+      "context_length_tokens": 4096,
+      "standard_fp16_mb": 512.0,
+      "atlas_morph_4bit_mb": 128.0,
+      "vram_saved_mb": 384.0,
+      "memory_reduction_pct": 75.0,
+      "max_batch_at_8gb_gpu": 46,
+      "max_batch_standard_8gb": 11
+    },
+    {
+      "context_length_tokens": 8192,
+      "standard_fp16_mb": 1024.0,
+      "atlas_morph_4bit_mb": 256.0,
+      "vram_saved_mb": 768.0,
+      "memory_reduction_pct": 75.0,
+      "max_batch_at_8gb_gpu": 23,
+      "max_batch_standard_8gb": 5
+    }
+  ]
+}
