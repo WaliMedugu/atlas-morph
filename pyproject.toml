@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atlas-morph"
+version = "1.0.0"
+authors = [
+  { name="Medugu Wali", email="m.wali@nileuniversity.edu.ng" },
+  { name="Mutmainnah Magaji" },
+  { name="Ojo Timothy" },
+]
+description = "Sovereign Diacritic-Aware Tokenization & Low-Rank Inference Acceleration Suite for N-ATLaS"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/medugu-wali/atlas-morph"
+"Bug Tracker" = "https://github.com/medugu-wali/atlas-morph/issues"
+"Competition" = "https://ncair.nitda.gov.ng/naic/"

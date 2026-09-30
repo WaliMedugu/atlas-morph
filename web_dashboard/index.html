@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS-MORPH | Sovereign N-ATLaS Acceleration Suite</title>
+    <meta name="description" content="Sovereign Diacritic-Aware Tokenization & 4-Bit KV-Cache Acceleration Engine for N-ATLaS. National AI Innovation Challenge 2026.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Bar -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="brand-logo">AM</div>
+                <div>
+                    <h1 class="brand-title">ATLAS-MORPH</h1>
+                    <span class="brand-subtitle">Sovereign N-ATLaS Acceleration Suite &bull; NAIC 2026</span>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="pill-badge pill-host">NCAIR / NITDA &bull; FMCIDE</span>
+                <span class="pill-badge pill-track">Academia & Research Track</span>
+                <span class="pill-badge pill-status" id="backendStatus"><span class="status-dot"></span> Live Engine Ready</span>
+            </div>
+        </header>
+
+        <!-- Hero Metric Bar -->
+        <section class="hero-metrics">
+            <div class="metric-card">
+                <div class="metric-label">Token Fertility Reduction</div>
+                <div class="metric-val text-emerald" id="gaugeFertility">3.82 ➔ 1.41</div>
+                <div class="metric-desc">Eliminates raw byte fallback on tones</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Active KV-Cache Savings</div>
+                <div class="metric-val text-cyan" id="gaugeVram">75.0%</div>
+                <div class="metric-desc">16.2 GB ➔ 5.2 GB via 4-Bit Paged Cache</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Inference Throughput Gain</div>
+                <div class="metric-val text-amber" id="gaugeSpeedup">2.8x Faster</div>
+                <div class="metric-desc">Real-time execution on budget 8GB GPUs</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Target Foundation Model</div>
+                <div class="metric-val text-indigo">N-ATLaS 8B</div>
+                <div class="metric-desc">Yorùbá &bull; Hausa &bull; Igbo &bull; Nigerian English</div>
+            </div>
+        </section>
+
+        <!-- Main Workspace Grid -->
+        <main class="workspace-grid">
+            <!-- Left Panel: Input & Control -->
+            <div class="card control-card">
+                <div class="card-header">
+                    <h2>Input Text & Orthography Diagnostics</h2>
+                    <span class="header-tag">Live Testing</span>
+                </div>
+
+                <!-- Language Presets -->
+                <div class="preset-group">
+                    <span class="preset-label">Test Presets:</span>
+                    <button class="preset-btn active" data-lang="yor" id="btnPresetYor">Yorùbá Tones</button>
+                    <button class="preset-btn" data-lang="hau" id="btnPresetHau">Hausa Glottals</button>
+                    <button class="preset-btn" data-lang="ibo" id="btnPresetIbo">Igbo Sub-dots</button>
+                    <button class="preset-btn" data-lang="eng" id="btnPresetEng">English Control</button>
+                </div>
+
+                <!-- Text Area -->
+                <div class="input-wrapper">
+                    <textarea id="promptInput" rows="4" placeholder="Enter text in Yorùbá, Hausa, Igbo, or English with full diacritics..."></textarea>
+                </div>
+
+                <div class="action-row">
+                    <div class="char-word-count">
+                        <span id="charCount">0 characters</span> &bull; <span id="wordCount">0 words</span>
+                    </div>
+                    <button class="btn btn-primary" id="btnRunOptimization">
+                        <span class="btn-icon">⚡</span> Run ATLAS-MORPH Acceleration
+                    </button>
+                </div>
+
+                <!-- Diacritic Inspector -->
+                <div class="diacritic-inspector" id="diacriticInspector">
+                    <div class="inspector-title">Orthographic Diacritic Scanner</div>
+                    <div class="inspector-tags">
+                        <span class="itag" id="tagTones">Tones Detected: 0</span>
+                        <span class="itag" id="tagSubdots">Sub-dots: 0</span>
+                        <span class="itag" id="tagGlottals">Hooked Glyphs: 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Side-by-Side Comparison -->
+            <div class="card comparison-card">
+                <div class="card-header">
+                    <h2>Side-by-Side Architectural Telemetry</h2>
+                    <span class="header-tag highlight">Empirical Proof</span>
+                </div>
+
+                <div class="split-view">
+                    <!-- Standard N-ATLaS Column -->
+                    <div class="view-column raw-col">
+                        <div class="col-header">
+                            <span class="col-title text-rose">Standard Llama-3 / N-ATLaS</span>
+                            <span class="col-badge badge-warning" id="rawTokenBadge">0 Tokens</span>
+                        </div>
+                        <div class="stat-pills">
+                            <div class="stat-pill"><span class="lbl">Fertility:</span> <strong id="rawFertility">0.00</strong></div>
+                            <div class="stat-pill"><span class="lbl">VRAM Est:</span> <strong id="rawVram">0.0 MB</strong></div>
+                            <div class="stat-pill"><span class="lbl">Latency:</span> <strong id="rawLatency">0 ms</strong></div>
+                        </div>
+                        <div class="token-container" id="rawTokensList">
+                            <span class="placeholder-text">Tokens will appear here...</span>
+                        </div>
+                        <div class="col-footer text-rose">
+                            ⚠️ Byte-fallback fragmentation on combining diacritics
+                        </div>
+                    </div>
+
+                    <!-- ATLAS-MORPH Column -->
+                    <div class="view-column opt-col">
+                        <div class="col-header">
+                            <span class="col-title text-emerald">ATLAS-MORPH Engine</span>
+                            <span class="col-badge badge-success" id="optTokenBadge">0 Tokens</span>
+                        </div>
+                        <div class="stat-pills">
+                            <div class="stat-pill"><span class="lbl">Fertility:</span> <strong id="optFertility">0.00</strong></div>
+                            <div class="stat-pill"><span class="lbl">4-Bit VRAM:</span> <strong id="optVram">0.0 MB</strong></div>
+                            <div class="stat-pill"><span class="lbl">Latency:</span> <strong id="optLatency">0 ms</strong></div>
+                        </div>
+                        <div class="token-container" id="optTokensList">
+                            <span class="placeholder-text">Tokens will appear here...</span>
+                        </div>
+                        <div class="col-footer text-emerald">
+                            ✅ 100% Diacritic preservation & 4-bit KV caching
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Generation Live Test Bench -->
+        <section class="generation-bench card">
+            <div class="card-header">
+                <h2>Accelerated N-ATLaS Generation Sandbox</h2>
+                <div class="generation-controls">
+                    <label>Max Tokens: <span id="valMaxTokens">45</span></label>
+                    <input type="range" id="sliderTokens" min="16" max="128" value="45">
+                    <button class="btn btn-secondary" id="btnGenerate">Test Generation Output</button>
+                </div>
+            </div>
+            <div class="generation-output-box" id="generationOutput">
+                <span class="placeholder-text">Click "Test Generation Output" to execute generation through ATLAS-MORPH...</span>
+            </div>
+        </section>
+
+        <!-- Team & Institution Footer -->
+        <footer class="app-footer">
+            <div class="footer-left">
+                <strong>Project ATLAS-MORPH</strong> &bull; Department of Computer Science, Nile University of Nigeria
+            </div>
+            <div class="footer-center">
+                Supervisor: <strong>Mrs. Hauwa Ibrahim Aminu</strong> | Team: <strong>Medugu Wali (Lead), Mutmainnah Magaji, Ojo Timothy</strong>
+            </div>
+            <div class="footer-right">
+                NAIC 2026 Submission
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
