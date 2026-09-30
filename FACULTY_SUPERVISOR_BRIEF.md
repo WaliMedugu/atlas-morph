@@ -2,14 +2,14 @@
 ## Project: ATLAS-MORPH (Sovereign Tokenization & Inference Acceleration for N-ATLaS)
 **Prepared for:** Mrs. Hauwa Ibrahim Aminu (Department of Computer Science, Nile University of Nigeria)  
 **Initiative:** National AI Innovation Challenge (NAIC 2026) – Academia & Research Track  
-**Convened by:** FMCIDE | NCAIR | NITDA | ONDI | Awarri Technologies  
+**Convened by:** Federal Ministry of Communications, Innovation & Digital Economy (FMCIDE) | NCAIR | NITDA | ONDI | Awarri Technologies  
 **Submission Deadline:** 12 October 2026, 23:59 WAT  
 
 ---
 
 ## 1. Executive Summary
 
-**ATLAS-MORPH** is an academic research and developer tooling project built by student researchers from Nile University of Nigeria, supervised by **Mrs. Hauwa Ibrahim Aminu** (Department of Computer Science).
+**ATLAS-MORPH** is an academic research and developer tooling project built by student researchers from the **Department of Computer Science, Nile University of Nigeria**, supervised by **Mrs. Hauwa Ibrahim Aminu**. 
 
 The project solves a major technical bottleneck in **N-ATLaS** (Nigeria’s sovereign 8B multilingual LLM): the **3.8x "Tokenization Tax" and memory latency** experienced on tonal African orthographies (Yorùbá, Hausa, and Igbo). 
 
@@ -82,17 +82,17 @@ The student team is assembling the 7 required portal deliverables:
 | **03** | **Real-World Validation** | PDF | Benchmark report showing >2.5x speedup and feedback from 2+ external lab testers. |
 | **04** | **Technical Documentation** | PDF | Architecture paper detailing the normalizer and 4-bit KV-cache mechanics. |
 | **05** | **Video Demonstration** | URL | 3–5 minute video walkthrough demonstrating end-to-end acceleration. |
-| **06** | **Team Profile** | PDF | Academic bios, affiliations, and details for all team members and supervisor. |
+| **06** | **Team Profile** | PDF | Academic bios, affiliations, and roles for all team members and supervisor. |
 | **07** | **Institutional Endorsement Letter** | PDF | 1-page letter signed by the Head of Department on Nile University letterhead. |
 
 ---
 
 ## 6. Official Team Roster
 
-* **Faculty Supervisor:** Mrs. Hauwa Ibrahim Aminu *(Department of Computer Science, Nile University of Nigeria)*
-* **Team Lead:** Medugu Wali
-* **Team Member:** Mutmainnah Magaji
-* **Team Member:** Ojo Timothy
+* **Faculty Supervisor:** **Mrs. Hauwa Ibrahim Aminu** (Lecturer, Department of Computer Science, Nile University of Nigeria)
+* **Team Lead & Systems Architect:** **Medugu Wali** (Department of Computer Science, Nile University of Nigeria)
+* **NLP & Testing Specialist:** **Mutmainnah Magaji** (Department of Computer Science, Nile University of Nigeria)
+* **Full-Stack & Benchmarking Lead:** **Ojo Timothy** (Department of Computer Science, Nile University of Nigeria)
 
 ---
 

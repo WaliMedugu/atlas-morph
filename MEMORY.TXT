@@ -221,13 +221,12 @@ Compiled `FACULTY_SUPERVISOR_BRIEF.md` into an executive-styled, print-perfect P
 --------------------------------------------------------------------------------
 39. USER PROMPT INPUT (Follow-up 19)
 --------------------------------------------------------------------------------
-"dont give roles or titles or mention anyone's department but the faculty supervisor
-keep it looking like the md files as much as possible, black bg white text too"
+"now.. make a list for me.. all the things that need to be done and deadlines for each"
 
 --------------------------------------------------------------------------------
 40. SHORT AGENT RESPONSE (Follow-up 19)
 --------------------------------------------------------------------------------
-Updated `FACULTY_SUPERVISOR_BRIEF.md` and regenerated `FACULTY_SUPERVISOR_BRIEF.pdf` with a sleek dark-mode markdown aesthetic (black `#0d1117` background, crisp light text, code blocks, dark tables). Stripped student roles and departments, only listing Mrs. Hauwa Ibrahim Aminu's department as supervisor, with clean member names (Medugu Wali, Mutmainnah Magaji, Ojo Timothy).
+Constructed a 6-phase master execution timeline mapping out every deliverable for NAIC 2026 across the remaining 12 days: Phase 1 Administrative & HOD Letter (Oct 1-4), Phase 2 Core Python Engine (Oct 1-6), Phase 3 Benchmarks & External Testers (Oct 5-8), Phase 4 Web UI & 3-5m Video Demo (Oct 7-10), Phase 5 Documentation & Review (Oct 9-11), and Phase 6 Final Portal Submission (Oct 11-12).
 
 --------------------------------------------------------------------------------
 41. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
