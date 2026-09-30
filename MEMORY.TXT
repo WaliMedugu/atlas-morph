@@ -121,17 +121,12 @@ Analyzed lecturer's enthusiastic but time-constrained response. Drafted a reassu
 --------------------------------------------------------------------------------
 21. USER PROMPT INPUT (Follow-up 10)
 --------------------------------------------------------------------------------
-"I wouldn’t want to be a part of something I barely know about 😂 
-I need to about it fully so I’ll be able to answer questions with my full chest
-But you know what
-Let’s talk tomorrow please
-
-now reply"
+"it generally involves reviewing our technical brief... I shouldn’t be a part of something I barely know about 😂 I need to about it fully so I’ll be able to answer questions with my full chest But you know what Let’s talk tomorrow please Let’s talk on the phone Or this evening After 19:00 You can call"
 
 --------------------------------------------------------------------------------
 22. SHORT AGENT RESPONSE (Follow-up 10)
 --------------------------------------------------------------------------------
-Celebrated the major milestone (lecturer agreed to a formal discussion tomorrow). Drafted an engaging, respectful WhatsApp reply confirming tomorrow's talk, validating her commitment to academic ownership ('with full chest'), and prepared a concise talking-points cheat sheet for the call.
+Celebrated successful engagement where the lecturer agreed to a phone briefing after 19:00. Provided an immediate WhatsApp confirmation reply and an executive phone-call briefing cheat-sheet (3-minute elevator pitch, technical architecture explanation connecting to her LLM research background, and anticipated Q&A) to ensure a high-confidence, successful call.
 
 --------------------------------------------------------------------------------
 23. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
