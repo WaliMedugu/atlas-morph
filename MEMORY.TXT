@@ -173,7 +173,17 @@ and the competiton details"
 Enhanced `MEETING_BRIEF.md` with: (1) Complete NAIC 2026 competition facts, dates, scoring, and prizes, (2) Two distinct verbal pitch scripts (a 1-minute elevator pitch and a 3-minute comprehensive academic pitch), and (3) A plain-English 4-part software build architecture breakdown.
 
 --------------------------------------------------------------------------------
-31. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+31. USER PROMPT INPUT (Follow-up 15)
+--------------------------------------------------------------------------------
+"what are the deadlines"
+
+--------------------------------------------------------------------------------
+32. SHORT AGENT RESPONSE (Follow-up 15)
+--------------------------------------------------------------------------------
+Provided the complete official NAIC 2026 timeline: Application/Submission Deadline (12 October 2026, 11:59 PM WAT), N-ATLaS Verification (15-17 Oct), Shortlisting Notification (16-20 Oct), Acceleration Mentorship (25 Oct - 4 Nov), and Digital Nigeria Showcase Finals (8-10 Nov 2026).
+
+--------------------------------------------------------------------------------
+33. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
