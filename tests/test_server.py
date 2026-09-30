@@ -80,6 +80,27 @@ class TestAtlasServer(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertIn("token_reduction_pct", data)
 
+    def test_restore_endpoint(self):
+        payload = {
+            "text": "bawo ni gbogbo nkan",
+            "language": "yor",
+        }
+        status, data = self._request("POST", "/restore", payload)
+        self.assertEqual(status, 200)
+        self.assertIn("restored", data)
+        self.assertIn("báwo", data["restored"])
+
+    def test_voice_endpoint(self):
+        payload = {
+            "audio": "simulated_audio_note.wav",
+            "language": "yor",
+        }
+        status, data = self._request("POST", "/voice", payload)
+        self.assertEqual(status, 200)
+        self.assertTrue(data.get("voice_first_certified"))
+        self.assertIn("transcription", data)
+        self.assertIn("vad_telemetry", data)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -65,7 +65,7 @@ class AtlasRequestHandler(BaseHTTPRequestHandler):
             payload = {
                 "title": "ATLAS-MORPH Competition Inference Server",
                 "challenge": "NAIC 2026 (NCAIR / NITDA)",
-                "endpoints": ["/process", "/tokenize", "/benchmark", "/health"],
+                "endpoints": ["/process", "/tokenize", "/benchmark", "/restore", "/voice", "/health"],
             }
             self._set_headers(200)
             self.wfile.write(json.dumps(payload, indent=2).encode("utf-8"))
@@ -128,6 +128,20 @@ class AtlasRequestHandler(BaseHTTPRequestHandler):
             self._set_headers(200)
             self.wfile.write(json.dumps(comp).encode("utf-8"))
 
+        elif self.path == "/restore":
+            text = body.get("text", "")
+            lang = body.get("language", "yor")
+            res = self.engine.restore_diacritics(text, language=lang)
+            self._set_headers(200)
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+
+        elif self.path == "/voice":
+            audio_data = body.get("audio", "")
+            lang = body.get("language", "yor")
+            res = self.engine.process_voice(audio_data, language=lang)
+            self._set_headers(200)
+            self.wfile.write(json.dumps(res).encode("utf-8"))
+
         else:
             self._set_headers(404)
             self.wfile.write(json.dumps({"error": "Unknown endpoint"}).encode("utf-8"))
@@ -144,7 +158,7 @@ def run_server(port: int = 8000, model_id: str = "NCAIR1/N-ATLaS"):
     server_address = ("", port)
     httpd = HTTPServer(server_address, AtlasRequestHandler)
     logger.info(f"🚀 ATLAS-MORPH server running at http://localhost:{port}")
-    logger.info("Endpoints: /process, /tokenize, /benchmark, /health")
+    logger.info("Endpoints: /process, /tokenize, /benchmark, /restore, /voice, /health")
 
     try:
         httpd.serve_forever()

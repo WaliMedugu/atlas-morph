@@ -67,6 +67,7 @@
                     <button class="preset-btn active" data-lang="yor" id="btnPresetYor">Yorùbá Tones</button>
                     <button class="preset-btn" data-lang="hau" id="btnPresetHau">Hausa Glottals</button>
                     <button class="preset-btn" data-lang="ibo" id="btnPresetIbo">Igbo Sub-dots</button>
+                    <button class="preset-btn" data-lang="whatsapp" id="btnPresetWhatsapp">💬 WhatsApp (No Tones)</button>
                     <button class="preset-btn" data-lang="eng" id="btnPresetEng">English Control</button>
                 </div>
 
@@ -79,9 +80,17 @@
                     <div class="char-word-count">
                         <span id="charCount">0 characters</span> &bull; <span id="wordCount">0 words</span>
                     </div>
-                    <button class="btn btn-primary" id="btnRunOptimization">
-                        <span class="btn-icon">⚡</span> Run ATLAS-MORPH Acceleration
-                    </button>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn btn-secondary" id="btnRestoreTones" title="Restore tones on informal WhatsApp text">
+                            ✨ Auto-Restore Tones
+                        </button>
+                        <button class="btn btn-secondary" id="btnVoiceDemo" title="Simulate Voice Note VAD Silence Pruning">
+                            🎙️ Voice Note VAD
+                        </button>
+                        <button class="btn btn-primary" id="btnRunOptimization">
+                            <span class="btn-icon">⚡</span> Run Acceleration
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Diacritic Inspector -->

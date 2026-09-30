@@ -45,6 +45,18 @@ class TestAtlasMorphEngine(unittest.TestCase):
         self.assertIn("fertility_raw", diag)
         self.assertIn("fertility_optimized", diag)
 
+    def test_engine_restore_diacritics(self):
+        text = "bawo ni gbogbo nkan"
+        res = self.engine.restore_diacritics(text, language="yor")
+        self.assertIn("restored", res)
+        self.assertIn("báwo", res["restored"])
+
+    def test_engine_process_voice(self):
+        res = self.engine.process_voice(b"\x00\x00" * 8000, language="yor")
+        self.assertEqual(res["status"], "success")
+        self.assertTrue(res["voice_first_certified"])
+        self.assertIn("vad_telemetry", res)
+
 
 if __name__ == "__main__":
     unittest.main()

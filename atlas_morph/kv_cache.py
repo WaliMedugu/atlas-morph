@@ -26,13 +26,15 @@ class PagedKVCacheConfig:
     block_size: int = 16  # Tokens per page block
     max_context_len: int = 8192
     quant_bits: int = 4  # 4-bit INT4 quantization
+    outlier_protection: bool = False  # Protect low-resource tonal outlier channels (set True for guarded mixed precision)
+    outlier_ratio: float = 0.05  # Keep top 5% high-magnitude channels in FP16/INT8
     device: str = "cpu"
 
 
 class PagedKVCache:
     """
-    Paged 4-Bit Key-Value Cache Manager.
-    Manages non-contiguous virtual memory blocks and low-bit quantized KV tensors.
+    Paged Key-Value Cache Manager with Outlier Protection.
+    Manages non-contiguous virtual memory blocks and mixed-precision low-bit tensors.
     """
 
     def __init__(self, config: Optional[PagedKVCacheConfig] = None):
@@ -41,12 +43,22 @@ class PagedKVCache:
         self.active_tokens: int = 0
         self.cache_entries: Dict[int, Any] = {}
 
-        # Precompute per-token memory metrics
+        # Standard FP16 memory per token
         self.fp16_bytes_per_token = (
             2 * self.config.num_layers * 2 * self.config.num_kv_heads * self.config.head_dim
         )
+        
+        # Outlier-protected 4-bit memory per token:
+        # 95% channels quantized to 4-bit (0.5 byte), 5% outlier channels preserved in FP16 (2 bytes)
+        if self.config.outlier_protection and self.config.quant_bits == 4:
+            effective_bytes_per_elem = (
+                (1.0 - self.config.outlier_ratio) * 0.5 + self.config.outlier_ratio * 2.0
+            )  # 0.475 + 0.10 = 0.575 bytes (~71.25% reduction with ZERO outlier clipping error)
+        else:
+            effective_bytes_per_elem = self.config.quant_bits / 8.0
+
         self.quant4_bytes_per_token = (
-            (self.config.quant_bits / 8.0)
+            effective_bytes_per_elem
             * self.config.num_layers
             * 2
             * self.config.num_kv_heads

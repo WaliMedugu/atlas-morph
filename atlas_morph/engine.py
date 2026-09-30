@@ -16,12 +16,14 @@ from atlas_morph.normalizer import AtlasNormalizer
 from atlas_morph.tokenizer import AtlasTokenizer
 from atlas_morph.kv_cache import PagedKVCache, PagedKVCacheConfig
 from atlas_morph.metrics import AtlasMetrics
+from atlas_morph.diacritic_restorer import AtlasDiacriticRestorer
+from atlas_morph.voice import AtlasVoiceProcessor
 
 
 class AtlasMorphEngine:
     """
-    Sovereign Execution Engine for N-ATLaS with Diacritic Normalization
-    and 4-Bit KV-Cache Acceleration.
+    Sovereign Execution Engine for N-ATLaS with Diacritic Normalization,
+    Automatic Tone Restoration, Voice Note VAD, and 4-Bit KV-Cache Acceleration.
     """
 
     def __init__(
@@ -36,8 +38,10 @@ class AtlasMorphEngine:
         self.device = device
         self.hf_token = hf_token or os.environ.get("HUGGINGFACE_TOKEN")
 
-        # Initialize sovereign normalizer & tokenizer
-        self.normalizer = AtlasNormalizer(preserve_tones=True, aggressive_merge=True)
+        # Initialize sovereign normalizer, restorer, voice processor, & tokenizer
+        self.normalizer = AtlasNormalizer(preserve_tones=True, aggressive_merge=True, restore_tones=True)
+        self.restorer = AtlasDiacriticRestorer()
+        self.voice_processor = AtlasVoiceProcessor()
         self.tokenizer = AtlasTokenizer(model_name=model_id, aggressive_merge=True)
         self.kv_cache = PagedKVCache(PagedKVCacheConfig(quant_bits=4 if load_in_4bit else 16))
 
@@ -83,6 +87,35 @@ class AtlasMorphEngine:
         Run a live comparative diagnostic of tokenization, latency, and VRAM footprint.
         """
         return self.tokenizer.compare_tokenization(text, language=language)
+
+    def restore_diacritics(
+        self, text: str, language: Optional[str] = "yor"
+    ) -> Dict[str, Any]:
+        """
+        Restore missing tones and sub-dots on informal ASCII or WhatsApp text.
+        """
+        restored, stats = self.restorer.restore_diacritics(text, language=language or "yor")
+        return {
+            "original": text,
+            "restored": restored,
+            "language": language or "yor",
+            "stats": stats,
+        }
+
+    def process_voice(
+        self,
+        audio_data: Union[bytes, str],
+        language: str = "yor",
+    ) -> Dict[str, Any]:
+        """
+        End-to-end voice-note inference pipeline:
+        VAD silence pruning -> ASR transcription -> accelerated N-ATLaS generation.
+        """
+        return self.voice_processor.process_voice_query(
+            audio_data=audio_data,
+            language=language,
+            engine=self,
+        )
 
     def generate(
         self,

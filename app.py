@@ -33,7 +33,7 @@ class UnifiedSpaceHandler(AtlasRequestHandler):
         path = parsed.path
 
         # REST API endpoints
-        if path in ("/health", "/process", "/tokenize", "/benchmark"):
+        if path in ("/health", "/process", "/tokenize", "/benchmark", "/restore", "/voice"):
             super().do_GET()
             return
 
@@ -75,7 +75,7 @@ def main():
     httpd = HTTPServer(server_address, UnifiedSpaceHandler)
 
     print(f"🚀 Cloud App & Speedometer Dashboard running at: http://localhost:{PORT}")
-    print("API Endpoints available: /health, /process, /tokenize, /benchmark")
+    print("API Endpoints available: /health, /process, /tokenize, /benchmark, /restore, /voice")
     print("Hugging Face Spaces compatible: YES")
     print("=" * 80)
 

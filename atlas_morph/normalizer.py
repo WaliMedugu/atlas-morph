@@ -99,15 +99,26 @@ class AtlasNormalizer:
         (re.compile(r"\bse\s+e\b", re.IGNORECASE), "ṣeé"),
     ]
 
-    def __init__(self, preserve_tones: bool = True, aggressive_merge: bool = True):
+    def __init__(
+        self,
+        preserve_tones: bool = True,
+        aggressive_merge: bool = True,
+        restore_tones: bool = True,
+    ):
         """
         Initialize the AtlasNormalizer.
 
         :param preserve_tones: Ensure tonal diacritics are strictly preserved (critical for semantics).
         :param aggressive_merge: Resolve common multi-byte compound contractions.
+        :param restore_tones: Automatically restore missing tone marks on unaccented text.
         """
         self.preserve_tones = preserve_tones
         self.aggressive_merge = aggressive_merge
+        self.restore_tones = restore_tones
+
+        # Lazy import of restorer
+        from atlas_morph.diacritic_restorer import AtlasDiacriticRestorer
+        self.restorer = AtlasDiacriticRestorer()
 
         # Build master canonical replacement table
         self.master_map: Dict[str, str] = {}
@@ -155,10 +166,15 @@ class AtlasNormalizer:
         if not text:
             return ""
 
-        # Normalize Unicode diacritics
-        clean_text = self.normalize_unicode(text)
+        working_text = text
+        # Step 0: Automatic tone and diacritic restoration for unaccented text
+        if self.restore_tones and language in ("yor", "hau", "ibo", "yoruba", "hausa", "igbo", None):
+            working_text, _ = self.restorer.restore_diacritics(working_text, language=language or "yor")
 
-        # Language-specific contraction merging if enabled
+        # Step 1: Normalize Unicode diacritics
+        clean_text = self.normalize_unicode(working_text)
+
+        # Step 2: Language-specific contraction merging if enabled
         if self.aggressive_merge:
             if language in ("yor", "yoruba", None):
                 for pattern, replacement in self.YORUBA_VIRTUAL_CONTRACTIONS:
