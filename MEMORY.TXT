@@ -74,7 +74,19 @@ short and simple"
 Provided a concise, grouped 4-part checklist of essential requirements for the NAIC 2026 submission: Team & Paperwork (2-5 members, HOD letter), Technical Build (Python package + N-ATLaS integration), Demonstration & UI (interactive web playground + 3-5 min video), and Real-World Validation (2+ external beta testers).
 
 --------------------------------------------------------------------------------
-13. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
+13. USER PROMPT INPUT (Follow-up 6)
+--------------------------------------------------------------------------------
+"Now.... draft a letter I can send to https://www.linkedin.com/in/hauwa-ibrahim-aminu-945130153/ Hauwa Ibrahim Aminu Requesting that she be the lecturer member.. shes a lecturer
+
+also... i need a letter from my hod right? what should be in it? and who exactly"
+
+--------------------------------------------------------------------------------
+14. SHORT AGENT RESPONSE (Follow-up 6)
+--------------------------------------------------------------------------------
+Researched Hauwa Ibrahim Aminu's academic background (Computer Science Lecturer at Nile University of Nigeria, LLM researcher, and STEM innovator). Drafted both a high-converting LinkedIn message and a formal email requesting her faculty supervisor role for ATLAS-MORPH in NAIC 2026. Provided a comprehensive breakdown of the HOD endorsement letter requirements, eligible signers, and a ready-to-print official institutional endorsement template.
+
+--------------------------------------------------------------------------------
+15. DETAILED LOGIC, FEATURES, ARCHITECTURE & FUNCTIONALITY
 --------------------------------------------------------------------------------
 
 A. HOST INCENTIVE FORENSICS (NCAIR / NITDA / FMCIDE / Awarri Technologies):
