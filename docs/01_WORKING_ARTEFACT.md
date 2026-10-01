@@ -22,9 +22,9 @@ The official portal submission requirement for Problem Statement 01 (Developer I
 **ATLAS-MORPH** fulfills 100% of this mandate. It is not a mockup, prototype, or theoretical proposal; it is a fully functioning Python software package with:
 - Zero mandatory external dependencies for core normalization, tokenization heuristics, and the competition HTTP server.
 - Drop-in SDK compatibility: `import atlas_morph as am; model = am.load("NCAIR1/N-ATLaS")`.
-- 100% automated test coverage across 26 unit and integration test cases.
+- 100% automated test coverage across 44 unit and integration test cases.
 - Full NeurIPS-grade competition REST API (`/process`, `/tokenize`, `/benchmark`, `/health`).
-- Interactive developer dashboard featuring real-time speedometer dials and diacritic visualizer.
+- Interactive Apple-standard developer dashboard featuring real-time telemetry chips, segmented controls, and diacritic visualizer.
 
 ---
 
@@ -53,18 +53,23 @@ ATLAS-MORPH ENGINE
 │
 ├── 4. AtlasMorphEngine (atlas_morph/engine.py)
 │      ├── 1-Line Drop-in SDK: `am.load("NCAIR1/N-ATLaS")`
-│      ├── Multilingual Forward-Pass Orchestrator
+│      ├── Native GPU Runtime Integration with Local Host Ollama Daemon
+│      ├── Dynamic Auto-Routing to Official N-ATLaS 8B GGUF Model
 │      └── Real-Time Telemetry Generator (Latency, Throughput, VRAM)
 │
-├── 5. Competition HTTP Server (atlas_morph/server.py)
+├── 5. Developer CLI (atlas_morph/cli.py)
+│      ├── Commands: `tokenize`, `generate`, `restore`, `bench`, `serve`
+│      └── Clean Output with Zero Emojis
+│
+├── 6. Competition HTTP Server (atlas_morph/server.py)
 │      ├── NeurIPS 2023 / NAIC 2026 Compliant REST Interface
 │      ├── Endpoints: `/process`, `/tokenize`, `/benchmark`, `/health`
 │      └── Zero-Dependency Portability (Python standard library BaseHTTPRequestHandler)
 │
-└── 6. Real-Time Web Speedometer Dashboard (web_dashboard/)
-       ├── Glassmorphism Dark-Mode UI
-       ├── Side-by-Side Raw vs Accelerated Token Visualizer
-       └── Live Speedometer Gauges for Token Savings, VRAM, and Latency
+└── 7. Apple Human Interface Web Dashboard (web_dashboard/ + app.py)
+       ├── Apple HIG Design System with SF Pro & Deep OLED Dark Mode (#000000)
+       ├── Side-by-Side Raw Baseline vs Accelerated Token Visualizer
+       └── Live Telemetry Chips for Token Savings, VRAM, and Latency
 ```
 
 ---
@@ -81,25 +86,29 @@ cd atlas-morph
 
 ### Step 2: Run Automated Unit & Integration Tests
 ```bash
-python -m unittest discover -s tests -v
+py -3.13 -m unittest discover -s tests -v
 ```
 *Expected Output:*
 ```
-Ran 26 tests in 0.653s
+Ran 44 tests in 0.562s
 OK
 ```
 
 ### Step 3: Run Full Empirical Benchmark Suite
 ```bash
-python benchmarks/run_benchmark.py
+py -3.13 benchmarks/run_benchmark.py
 ```
 *Expected Output:*
 - Computes token fertility, characters-per-token, token premium, and latency across 20 authentic multilingual prompts.
 - Generates `benchmarks/benchmark_results.json` and updates `benchmarks/benchmark_report.md`.
 
-### Step 4: Launch Competition HTTP REST API Server
+### Step 4: Run Developer CLI or Competition Server
 ```bash
-python atlas_morph/server.py 8000
+# Diagnostic Tokenizer CLI
+py -3.13 -m atlas_morph.cli tokenize "Ẹ káàárọ̀, báwo ni gbogbo nǹkan ṣe ń lọ?"
+
+# Competition Server on port 8000
+py -3.13 atlas_morph/server.py 8000
 ```
 *Test via cURL:*
 ```bash
@@ -112,11 +121,11 @@ curl -X POST http://localhost:8000/benchmark \
   -d '{"text": "Ẹ káàárọ̀, báwo ni gbogbo nǹkan ṣe ń lọ?", "language": "yor"}'
 ```
 
-### Step 5: Launch Interactive Web Speedometer Dashboard
+### Step 5: Launch Unified Server & Apple-Standard Dashboard
 ```bash
-python -m http.server 8080 --directory web_dashboard
+py -3.13 app.py
 ```
-Open `http://localhost:8080` in your web browser to test interactive prompt presets and observe live metric dials.
+Open `http://localhost:7860` in your web browser to test interactive prompt presets and observe live GPU metric telemetry.
 
 ---
 
