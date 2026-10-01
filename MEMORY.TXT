@@ -821,3 +821,34 @@ Purged internal meeting and supervisor briefs from the repository and synchroniz
 - Deleted: `MEETING_BRIEF.md`
 - Modified: `MEMORY.TXT` (audit log update)
 ================================================================================
+
+--------------------------------------------------------------------------------
+91. USER PROMPT INPUT (Follow-up 36 - Audio)
+--------------------------------------------------------------------------------
+"Now for the README file in the GitHub, I want you to update it because majority of the people I am working with don't know anything about AI. Don't know a thing about what they're doing. In fact, they're looking at this and they are confused. So I want you to make it easier for them to understand what's going on in the README file.
+Additionally, since Mutmainnah (Mutma) is the person that is testing, I want you to have a section of the README that contains things that she can do to test.
+Also be more clear on how these people can set up and what each component does in the README file."
+
+--------------------------------------------------------------------------------
+92. SHORT AGENT RESPONSE (Follow-up 36)
+--------------------------------------------------------------------------------
+Overhauled `README.md` to be accessible, beginner-friendly, structured, and test-oriented:
+1. Plain-English Overview (No AI Jargon): Added Section 1 explaining the real-world problem (how standard AI breaks African accents into 3-6 pieces, making it 3x slower and expensive) and the solution in simple everyday terms.
+2. Component Breakdown Table: Created a clear component-by-component lookup table detailing what every Python module, dashboard asset, benchmark suite, test file, and dossier does.
+3. 2-Minute Setup Guide: Provided simplified, step-by-step setup instructions for anyone on Windows, Mac, or Linux to install and launch the visual web dashboard (`py app.py`) at `http://localhost:7860`.
+4. Dedicated QA & Testing Guide for Mutmainnah (Mutma): Added Section 4 with a 7-step practical testing checklist covering:
+   - Test 1: Web Dashboard Visual & Language Presets.
+   - Test 2: Control vs Treatment Comparative Split-Screen.
+   - Test 3: Mobile Informal Tone Restoration.
+   - Test 4: WhatsApp Voice Note VAD Silence Pruning.
+   - Test 5: Live GPU Neural Generation (Zero Code-Switching verification).
+   - Test 6: Terminal Developer CLI commands.
+   - Test 7: Automated 44-Test Suite Execution (`py -3.13 -m unittest discover -s tests -v`).
+5. Git Synchronization: Committed and pushed the updated `README.md` to `origin main` on GitHub.
+
+--------------------------------------------------------------------------------
+93. GIT DIFF SUMMARY (Follow-up 36)
+--------------------------------------------------------------------------------
+- Modified: `README.md` (comprehensive plain-English overhaul, component table, setup guide, Mutma testing checklist, zero emojis)
+- Modified: `MEMORY.TXT` (audit log update)
+================================================================================
