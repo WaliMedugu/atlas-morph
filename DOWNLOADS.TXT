@@ -1,10 +1,10 @@
 ================================================================================
 ATLAS-MORPH - DOWNLOADS LOG & PROGRESS TRACKER
 ================================================================================
-Target: Real Local Neural Model on NVIDIA GeForce RTX 3050 6GB Laptop GPU
-Status: Downloading real neural weights to eliminate all mock generation.
+Target: Official N-ATLaS 8B GGUF on NVIDIA GeForce RTX 3050 6GB Laptop GPU
+Source: QuantFactory/N-ATLaS-GGUF (NCAIR1/N-ATLaS 8B Llama-3 Architecture)
 ================================================================================
 Download Item | Total Size | Progress | Status
 --------------------------------------------------------------------------------
-qwen2.5:0.5b | Complete | 100% | Ready for Inference
+N-ATLaS 8B Q4_K_M (QuantFactory) | 4.58 GB | 3% (0.18 GB / 4.58 GB) | Downloading (2.4 MB/s, ETA: 31m 29s)
 ================================================================================

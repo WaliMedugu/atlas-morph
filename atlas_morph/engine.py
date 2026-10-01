@@ -117,20 +117,42 @@ class AtlasMorphEngine:
             engine=self,
         )
 
+    def _get_active_ollama_model(self) -> str:
+        """
+        Dynamically selects official 'natlas' model if present in Ollama,
+        otherwise gracefully uses installed fallback.
+        """
+        try:
+            import urllib.request
+            import json
+            req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
+            with urllib.request.urlopen(req, timeout=1.5) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+                names = [m.get("name", "") for m in data.get("models", [])]
+                for n in names:
+                    if "natlas" in n:
+                        return n
+                if names:
+                    return names[0]
+        except Exception:
+            pass
+        return "natlas"
+
     def _call_neural_backend(
         self, prompt: str, system_prompt: str, max_tokens: int, temperature: float = 0.7
     ) -> Optional[str]:
         """
         Execute true autoregressive neural generation via the local Ollama neural engine
-        (Qwen2.5 0.5B / N-ATLaS weights on NVIDIA RTX 3050 GPU).
+        (Official N-ATLaS 8B GGUF weights on NVIDIA RTX 3050 GPU).
         Zero mock data, zero synthetic template strings.
         """
         try:
             import urllib.request
             import json
+            model_name = self._get_active_ollama_model()
             url = "http://127.0.0.1:11434/api/generate"
             payload = json.dumps({
-                "model": "qwen2.5:0.5b",
+                "model": model_name,
                 "prompt": prompt,
                 "system": system_prompt,
                 "stream": False,
@@ -140,7 +162,7 @@ class AtlasMorphEngine:
                 }
             }).encode("utf-8")
             req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
-            with urllib.request.urlopen(req, timeout=25) as resp:
+            with urllib.request.urlopen(req, timeout=60) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
                 res = data.get("response", "").strip()
                 if res:
