@@ -6,5 +6,5 @@ Source: QuantFactory/N-ATLaS-GGUF (NCAIR1/N-ATLaS 8B Llama-3 Architecture)
 ================================================================================
 Download Item | Total Size | Progress | Status
 --------------------------------------------------------------------------------
-N-ATLaS 8B Q4_K_M (QuantFactory) | 4.58 GB | 47% (2.17 GB / 4.58 GB) | Downloading (2.5 MB/s, ETA: 16m 16s)
+N-ATLaS 8B Q4_K_M (QuantFactory) | 4.58 GB | 100% | Ready for Inference as 'natlas'
 ================================================================================
