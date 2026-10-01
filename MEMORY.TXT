@@ -799,3 +799,25 @@ Configured remote and successfully pushed the entire codebase, documentation, an
    - Benchmark Reports: Multi-lingual empirical evaluations in `benchmarks/`.
 3. Binary Protection: Confirmed 4.58 GB local GGUF models and caches are strictly excluded via `.gitignore` to keep git operations fast and under GitHub limits.
 ================================================================================
+
+--------------------------------------------------------------------------------
+88. USER PROMPT INPUT (Follow-up 35)
+--------------------------------------------------------------------------------
+"remove private files like faculty supervisor breif.. plans.. etc"
+
+--------------------------------------------------------------------------------
+89. SHORT AGENT RESPONSE (Follow-up 35)
+--------------------------------------------------------------------------------
+Purged internal meeting and supervisor briefs from the repository and synchronized changes to GitHub:
+1. File Purge: Deleted `FACULTY_SUPERVISOR_BRIEF.md`, `FACULTY_SUPERVISOR_BRIEF.pdf`, and `MEETING_BRIEF.md`.
+2. Clean Repository Structure: Verified only official project source code, test suites, formal submission dossiers, benchmarks, upstream PR patches, and web dashboard assets remain tracked.
+3. GitHub Synchronization: Committed and pushed updates to `origin/main`.
+
+--------------------------------------------------------------------------------
+90. GIT DIFF SUMMARY (Follow-up 35)
+--------------------------------------------------------------------------------
+- Deleted: `FACULTY_SUPERVISOR_BRIEF.md`
+- Deleted: `FACULTY_SUPERVISOR_BRIEF.pdf`
+- Deleted: `MEETING_BRIEF.md`
+- Modified: `MEMORY.TXT` (audit log update)
+================================================================================
