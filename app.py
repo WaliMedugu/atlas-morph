@@ -57,6 +57,20 @@ class UnifiedSpaceHandler(AtlasRequestHandler):
                 content_type = "application/javascript; charset=utf-8"
             elif path.endswith(".json"):
                 content_type = "application/json; charset=utf-8"
+            elif path.endswith(".otf"):
+                content_type = "font/otf"
+            elif path.endswith(".woff2"):
+                content_type = "font/woff2"
+            elif path.endswith(".woff"):
+                content_type = "font/woff"
+            elif path.endswith(".ttf"):
+                content_type = "font/ttf"
+            elif path.endswith(".svg"):
+                content_type = "image/svg+xml"
+            elif path.endswith(".png"):
+                content_type = "image/png"
+            elif path.endswith(".jpg") or path.endswith(".jpeg"):
+                content_type = "image/jpeg"
             else:
                 content_type = "text/plain; charset=utf-8"
 

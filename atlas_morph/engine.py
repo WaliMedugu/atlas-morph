@@ -274,6 +274,22 @@ class AtlasMorphEngine:
 
         return None
 
+    def _detect_language(self, text: str) -> str:
+        """
+        Auto-detects Nigerian language from diacritics and characteristic lexical roots.
+        """
+        t_low = text.lower()
+        # Igbo indicators
+        if any(c in t_low for c in ["ị", "ụ", "ṅ"]) or any(w in t_low for w in ["abụghị", "abughi", "ezigbo", "usoro", "akụ", "aku", "ụba", "uba", "nke", "kedu", "ndị", "ndi", "mmiri", "ọrụ", "oru", "nri", "onye"]):
+            return "ibo"
+        # Yoruba indicators
+        if any(c in t_low for c in ["ẹ", "gb"]) or any(w in t_low for w in ["báwo", "bawo", "nǹkan", "nkan", "gbogbo", "kòsí", "kosi", "nínú", "ninu", "púpọ̀", "pupo", "dára", "dara", "ṣe", "se", "lọ", "lo"]):
+            return "yor"
+        # Hausa indicators
+        if any(c in t_low for c in ["ɓ", "ɗ", "ƙ", "ƴ"]) or any(w in t_low for w in ["sannu", "lafiya", "ina kwana", "aiki", "mutane", "shuka", "taki", "gaskiya", "gwamnati", "noma"]):
+            return "hau"
+        return "eng"
+
     def generate(
         self,
         prompt: str,
@@ -290,8 +306,9 @@ class AtlasMorphEngine:
         t0 = time.perf_counter()
 
         # Step 1: Pre-process and normalize input prompt
-        normalized_prompt = self.normalizer.process(prompt, language=language)
-        input_tokens = self.tokenizer.tokenize(normalized_prompt, language=language)
+        effective_lang = language if (language and language != "auto") else self._detect_language(prompt)
+        normalized_prompt = self.normalizer.process(prompt, language=effective_lang)
+        input_tokens = self.tokenizer.tokenize(normalized_prompt, language=effective_lang)
         num_input_tokens = len(input_tokens)
 
         # Step 2: Allocate Paged 4-Bit KV Cache
@@ -311,17 +328,24 @@ class AtlasMorphEngine:
             domain_response = self._generate_domain_linguistic_response(
                 prompt=prompt,
                 normalized_prompt=normalized_prompt,
-                language=language,
+                language=effective_lang,
             )
 
             if domain_response is not None:
                 output_text = domain_response
             else:
                 # For open-domain queries, query local neural model on GPU via Ollama
+                lang_names = {
+                    "yor": "Yorùbá (with authentic tonal marks and vocabulary)",
+                    "hau": "Hausa (standard Nigerian Hausa orthography)",
+                    "ibo": "Igbo (standard Igbo with accurate sub-dot vowels and vocabulary)",
+                    "eng": "English",
+                }
+                target_lang_desc = lang_names.get(effective_lang, "the exact same language as the user query")
                 system_prompt = (
-                    "You are N-ATLaS 8B, Nigeria's sovereign foundation language model, "
-                    "accelerated by ATLAS-MORPH. Provide a direct, factual, helpful, and natural response. "
-                    "Respond in the language of the prompt (Yorùbá, Hausa, Igbo, or English)."
+                    f"You are N-ATLaS 8B, Nigeria's sovereign foundation language model, accelerated by ATLAS-MORPH. "
+                    f"The user query is strictly in {target_lang_desc}. You must generate your entire response exclusively "
+                    f"and fluently in {target_lang_desc}. Do NOT code-switch, mix languages, or begin with words from other languages."
                 )
                 neural_output = self._call_neural_backend(
                     prompt=normalized_prompt,
@@ -338,7 +362,7 @@ class AtlasMorphEngine:
                         f"sovereign language understanding across Yorùbá, Hausa, Igbo, and English."
                     )
 
-            generated_tokens = self.tokenizer.tokenize(output_text, language=language)
+            generated_tokens = self.tokenizer.tokenize(output_text, language=effective_lang)
             generated_tokens_count = max(len(generated_tokens), 15)
             t_gen_end = time.perf_counter()
 
