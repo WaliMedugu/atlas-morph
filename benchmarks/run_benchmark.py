@@ -25,7 +25,7 @@ from benchmarks.dataset import BENCHMARK_CORPUS
 
 def run_benchmarks() -> Dict[str, Any]:
     print("=" * 70)
-    print("🚀 RUNNING ATLAS-MORPH EMPIRICAL BENCHMARKS (N-ATLaS ACCELERATION)")
+    print("RUNNING ATLAS-MORPH EMPIRICAL BENCHMARKS (N-ATLaS ACCELERATION)")
     print("=" * 70)
 
     tokenizer = AtlasTokenizer(model_name="NCAIR1/N-ATLaS", aggressive_merge=True)
@@ -105,12 +105,12 @@ def run_benchmarks() -> Dict[str, Any]:
     json_path = os.path.join(os.path.dirname(__file__), "benchmark_results.json")
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(report_payload, f, indent=2, ensure_ascii=False)
-    print(f"\n✅ JSON results saved to: {json_path}")
+    print(f"\nJSON results saved to: {json_path}")
 
     # Generate Markdown Report for Submission
     md_path = os.path.join(os.path.dirname(__file__), "benchmark_report.md")
     generate_markdown_report(summary, md_path)
-    print(f"✅ Markdown report saved to: {md_path}")
+    print(f"Markdown report saved to: {md_path}")
 
     return report_payload
 

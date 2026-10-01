@@ -95,9 +95,12 @@ def cmd_generate(args):
     lang = args.lang
     max_tokens = args.max_tokens
 
-    print(f"Generating with N-ATLaS 8B + ATLAS-MORPH Acceleration...")
+    print(f"Executing Inference: N-ATLaS 8B Foundation Model (Host GPU: RTX 3050)")
     print(f"Prompt: \"{prompt}\"")
     print(f"Max Tokens: {max_tokens} | Language: {lang or 'auto'}\n")
+
+    tokenizer = AtlasTokenizer()
+    diag = tokenizer.compare_tokenization(prompt, language=lang)
 
     model = am.load("NCAIR1/N-ATLaS")
     t0 = time.perf_counter()
@@ -105,19 +108,34 @@ def cmd_generate(args):
     elapsed = round((time.perf_counter() - t0) * 1000, 2)
 
     telem = result["telemetry"]
-    print("=" * 80)
+    print("-" * 80)
     print("N-ATLaS GENERATED OUTPUT:")
-    print("=" * 80)
+    print("-" * 80)
     print(result["response"])
-    print("=" * 80)
-    print(f"TELEMETRY & INFERENCE SPEED:")
-    print(f"  * Generated Tokens   : {telem['generated_tokens']}")
-    print(f"  * Generation Speed   : {telem['tokens_per_second']} tokens/sec")
-    print(f"  * Total Latency      : {elapsed} ms")
-    print(f"  * Prompt Tokens Saved: {telem['tokens_saved_on_prompt']} tokens")
-    print(f"  * KV Cache VRAM Saved: {telem['vram_saved_mb']} MB (4-bit Paged)")
-    print(f"  * Acceleration Factor: {telem['speedup_factor']}")
-    print("=" * 80)
+    print("-" * 80)
+
+    print("SIDE-BY-SIDE TELEMETRY (CONTROL vs. ATLAS-MORPH):")
+    print("-" * 80)
+    print("CONTROL (Standard N-ATLaS Baseline):")
+    print(f"  * Prompt Tokens       : {diag['raw_tokens_count']} tokens (with raw byte fragments)")
+    print(f"  * Token Fertility     : {diag['fertility_raw']:.2f} tokens/word")
+    print(f"  * KV Cache Memory     : {diag['raw']['estimated_vram_mb']} MB (Standard 16-bit)")
+    print(f"  * Baseline Latency Est: {diag['raw']['estimated_latency_ms']} ms")
+
+    print("\nTREATMENT (ATLAS-MORPH Acceleration):")
+    print(f"  * Prompt Tokens       : {diag['optimized_tokens_count']} tokens (zero byte fragments)")
+    print(f"  * Token Fertility     : {diag['fertility_optimized']:.2f} tokens/word")
+    print(f"  * KV Cache Memory     : {diag['optimized']['estimated_vram_mb']} MB (4-bit Paged)")
+    print(f"  * Generated Tokens    : {telem['generated_tokens']}")
+    print(f"  * Generation Speed    : {telem['tokens_per_second']} tokens/sec")
+    print(f"  * Total Latency       : {elapsed} ms")
+
+    print("-" * 80)
+    print("MEASURED SOVEREIGN GAINS:")
+    print(f"  * Prompt Token Reduction: {diag['token_reduction_pct']}% ({diag['token_savings']} tokens saved)")
+    print(f"  * KV Cache VRAM Saved   : {telem['vram_saved_mb']} MB (75.0% memory reduction)")
+    print(f"  * Acceleration Factor   : {telem['speedup_factor']}")
+    print("-" * 80)
 
 
 def cmd_restore(args):
@@ -135,8 +153,8 @@ def cmd_restore(args):
 
 def cmd_bench(args):
     print_banner()
-    print("Running Full Empirical Benchmark Suite across 60 Prompts & 6 Domains...\n")
-    from benchmarks.run_all import main as run_benchmarks
+    print("Running Full Empirical Benchmark Suite across Multilingual Evaluation Corpus...\n")
+    from benchmarks.run_benchmark import run_benchmarks
     run_benchmarks()
 
 

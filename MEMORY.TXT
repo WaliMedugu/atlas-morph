@@ -654,3 +654,32 @@ Milestone achieved - Official N-ATLaS 8B foundation model running live on NVIDIA
 - Hardware offload: 8-Billion parameter foundation model running on NVIDIA GeForce RTX 3050 6GB Laptop GPU
 - Verification: 44 of 44 automated tests passing cleanly in 0.548s.
 ================================================================================
+
+--------------------------------------------------------------------------------
+76. USER PROMPT INPUT (Follow-up 31)
+--------------------------------------------------------------------------------
+"now how do we test it with control
+im waiting"
+
+--------------------------------------------------------------------------------
+77. SHORT AGENT RESPONSE (Follow-up 31)
+--------------------------------------------------------------------------------
+Configured and documented 4 comprehensive workflows to test and benchmark ATLAS-MORPH directly against the CONTROL (Standard Raw N-ATLaS Baseline):
+1. Interactive Apple Web Dashboard (http://localhost:7860):
+   - Features dedicated side-by-side comparative split screen: Left column displays CONTROL (Standard Raw Baseline) with fragmented <byte_xx> tokens, high fertility (5.56+), and 128 KB/token uncompressed 16-bit KV cache; Right column displays TREATMENT (ATLAS-MORPH) with precomposed syllables, 0 byte fallbacks, 32 KB/token 4-bit paged cache, and real-time speedup dial.
+2. Developer CLI Autoregressive Generation (`py -3.13 -m atlas_morph.cli generate "<prompt>"`):
+   - Enhanced `cmd_generate` to display a full side-by-side telemetry table for any query: prints Control prompt tokens, fertility, and 16-bit VRAM alongside ATLAS-MORPH GPU tokens, generation speed, 4-bit VRAM, and measured sovereign speedup.
+3. Developer CLI Tokenization Inspector (`py -3.13 -m atlas_morph.cli tokenize "<text>"`):
+   - Directly exposes the African Language Tokenization Tax at the subword level, displaying exact byte tokens (e.g. ['<byte_e1>', '<byte_ba>', ...]) vs sovereign morphemes.
+4. Full Multilingual Benchmark Suite (`py -3.13 -m atlas_morph.cli bench`):
+   - Fixed runner imports and emoji formatting in `benchmarks/run_benchmark.py`. Successfully evaluated 60 prompts across Yorùbá, Hausa, Igbo, and English, exporting empirical JSON and Markdown reports.
+5. Verification: All 44 automated tests pass in 0.606s.
+
+--------------------------------------------------------------------------------
+78. GIT DIFF SUMMARY (Follow-up 31)
+--------------------------------------------------------------------------------
+- Modified: `atlas_morph/cli.py` (enhanced `cmd_generate` with side-by-side Control vs Treatment breakdown; fixed `cmd_bench` import)
+- Modified: `benchmarks/run_benchmark.py` (stripped emojis, clean logging)
+- Updated: `benchmarks/benchmark_results.json` & `benchmarks/benchmark_report.md` (re-executed 60-prompt empirical evaluation)
+- Verification: 44 of 44 tests passing cleanly in 0.606s.
+===============================================================================
