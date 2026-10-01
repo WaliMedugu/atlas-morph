@@ -163,7 +163,7 @@ function clientSideTokenize(text, isOptimized = false) {
                 }
             }
         } else {
-            // Control: Llama-3 BPE Byte Fallback on accents
+            // Control: Raw N-ATLaS 8B (Pre-ATLAS-MORPH) Byte Fallback on African accents
             if (/[áàāéèēẹ́ẹ̀ẹ̄íìīóòōọ́ọ̀ọ̄úùūńǹḿm̀ṣịụṅɓɗƙƴ\u0300-\u036F]/i.test(chunk)) {
                 for (const char of chunk) {
                     if (char.charCodeAt(0) > 127) {

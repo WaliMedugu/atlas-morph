@@ -61,22 +61,27 @@ def cmd_tokenize(args):
         opt = res["optimized"]
         comp = res["comparison"]
 
+        import textwrap
         print("-" * 80)
-        print("SIDE-BY-SIDE TOKENIZATION COMPARISON (CONTROL vs. ATLAS-MORPH)")
+        print("SIDE-BY-SIDE TOKENIZATION COMPARISON (CONTROL vs. TREATMENT)")
         print("-" * 80)
-        print(f"CONTROL (Standard Llama-3 BPE):")
+        print("CONTROL (Raw N-ATLaS 8B Baseline - Pre-ATLAS-MORPH):")
         print(f"  * Token Count : {raw['tokens']}")
         print(f"  * Fertility   : {raw['fertility']:.2f} tokens/word")
         print(f"  * Est. Latency: {raw['estimated_latency_ms']} ms")
-        print(f"  * Est. KV VRAM: {raw['estimated_vram_mb']} MB")
-        print(f"  * Tokens: {res['raw_tokens']}")
+        print(f"  * Est. KV VRAM: {raw['estimated_vram_mb']} MB (Standard 16-bit)")
+        raw_tok_str = ", ".join(repr(t) for t in res['raw_tokens'])
+        wrapped_raw = textwrap.fill(raw_tok_str, width=76, initial_indent="    ", subsequent_indent="    ")
+        print(f"  * Tokens ({len(res['raw_tokens'])}):\n{wrapped_raw}")
 
-        print(f"\nATLAS-MORPH (Sovereign Acceleration):")
+        print(f"\nTREATMENT (N-ATLaS 8B with ATLAS-MORPH Acceleration):")
         print(f"  * Token Count : {opt['tokens']}")
         print(f"  * Fertility   : {opt['fertility']:.2f} tokens/word")
         print(f"  * Est. Latency: {opt['estimated_latency_ms']} ms")
-        print(f"  * 4-Bit KV VRAM: {opt['estimated_vram_mb']} MB")
-        print(f"  * Tokens: {res['optimized_tokens']}")
+        print(f"  * 4-Bit KV VRAM: {opt['estimated_vram_mb']} MB (4-bit Paged)")
+        opt_tok_str = ", ".join(repr(t) for t in res['optimized_tokens'])
+        wrapped_opt = textwrap.fill(opt_tok_str, width=76, initial_indent="    ", subsequent_indent="    ")
+        print(f"  * Tokens ({len(res['optimized_tokens'])}):\n{wrapped_opt}")
 
         print("-" * 80)
         print(f"EFFICIENCY GAINS:")

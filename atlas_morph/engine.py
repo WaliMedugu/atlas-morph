@@ -350,7 +350,7 @@ class AtlasMorphEngine:
 
         # Baseline comparison metrics
         raw_tokens_count = len(
-            self.tokenizer._simulated_llama3_bpe_tokenize(prompt)
+            self.tokenizer._raw_natlas_bpe_tokenize(prompt)
         )
         token_savings = raw_tokens_count - num_input_tokens
 
@@ -361,6 +361,7 @@ class AtlasMorphEngine:
             "language": language or "auto",
             "telemetry": {
                 "input_tokens_optimized": num_input_tokens,
+                "input_tokens_raw_natlas": raw_tokens_count,
                 "input_tokens_raw_llama3": raw_tokens_count,
                 "tokens_saved_on_prompt": token_savings,
                 "generated_tokens": generated_tokens_count,

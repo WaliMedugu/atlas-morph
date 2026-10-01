@@ -66,12 +66,14 @@ class AtlasTokenizer:
         "anyanwụ", "ọkụ", "ego", "ahịa", "ụlọ", "nne", "nna", "nwa", "ụmụaka"
     }
 
-    def _simulated_llama3_bpe_tokenize(self, text: str) -> List[str]:
+    def _raw_natlas_bpe_tokenize(self, text: str) -> List[str]:
         """
-        CONTROL: Standard Baseline Llama-3 BPE Tokenizer.
-        Demonstrates the real-world Tokenization Tax on African languages:
+        CONTROL: Raw Unaugmented N-ATLaS 8B Base Tokenizer (Pre-ATLAS-MORPH).
+        N-ATLaS 8B (NCAIR1/N-ATLaS) was fine-tuned on Meta-Llama-3-8B without modifying
+        or expanding the underlying 128k BPE vocabulary for African diacritics.
+        Therefore, without ATLAS-MORPH, raw N-ATLaS exhibits:
         1. Decomposed accents, tone marks, and sub-dots trigger raw UTF-8 byte fallbacks (<byte_XX>).
-        2. Unrecognized multi-syllabic African words fragment into sub-optimal 2-3 char pieces.
+        2. Unrecognized multi-syllabic African words fragment into sub-optimal disjoint pieces.
         """
         import re
 
@@ -180,11 +182,11 @@ class AtlasTokenizer:
     ) -> Dict[str, Any]:
         """
         Run side-by-side comparison:
-        - Raw Llama-3 / N-ATLaS Tokenization (showing fragmentation & byte fallback)
-        - ATLAS-MORPH Accelerated Tokenization (showing unified tokens & speedup)
+        - Raw N-ATLaS 8B Tokenization (Pre-ATLAS-MORPH: byte fallback and fragmentation)
+        - N-ATLaS 8B + ATLAS-MORPH Acceleration (unified tokens and speedup)
         """
-        # 1. Raw Tokenization without diacritic normalization
-        raw_tokens = self._simulated_llama3_bpe_tokenize(text)
+        # 1. Raw N-ATLaS Baseline without diacritic normalization
+        raw_tokens = self._raw_natlas_bpe_tokenize(text)
 
         # 2. Optimized Tokenization with ATLAS-MORPH
         normalized = self.normalizer.process(text, language=language)
@@ -203,6 +205,9 @@ class AtlasTokenizer:
         comparison["normalized_text"] = normalized
 
         return comparison
+
+    # Backward compatibility alias
+    _simulated_llama3_bpe_tokenize = _raw_natlas_bpe_tokenize
 
     def encode(self, text: str, language: Optional[str] = None) -> List[int]:
         """

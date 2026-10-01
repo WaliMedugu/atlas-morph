@@ -683,3 +683,32 @@ Configured and documented 4 comprehensive workflows to test and benchmark ATLAS-
 - Updated: `benchmarks/benchmark_results.json` & `benchmarks/benchmark_report.md` (re-executed 60-prompt empirical evaluation)
 - Verification: 44 of 44 tests passing cleanly in 0.606s.
 ===============================================================================
+
+--------------------------------------------------------------------------------
+79. USER PROMPT INPUT (Follow-up 32)
+--------------------------------------------------------------------------------
+"Is the control you are useing N-ATLaS, or llama 3. because i want it to be N-ATLaS. so that we can compare pre N-ATLaS to current N-ATLaS with ATLAS-MORPH"
+
+--------------------------------------------------------------------------------
+80. SHORT AGENT RESPONSE (Follow-up 32)
+--------------------------------------------------------------------------------
+Clarified that the Control is indeed Raw N-ATLaS 8B (Pre-ATLAS-MORPH) and standardized all labeling and formatting across the system:
+1. Technical Foundation: N-ATLaS 8B (`NCAIR1/N-ATLaS`) is fine-tuned from Meta-Llama-3-8B. NCAIR kept the default 128k BPE vocabulary without native African diacritic expansion or NFC normalization. Consequently, the native, pre-ATLAS-MORPH tokenizer of N-ATLaS is that unaugmented BPE tokenizer, which is precisely why raw N-ATLaS shatters Yoruba, Hausa, and Igbo into raw <byte_xx> tokens.
+2. Explicit Label Harmonization: Replaced legacy "Llama-3 BPE" labels with:
+   - "CONTROL (Raw N-ATLaS 8B Baseline - Pre-ATLAS-MORPH)"
+   - "TREATMENT (N-ATLaS 8B with ATLAS-MORPH Acceleration)"
+   across `atlas_morph/cli.py`, `atlas_morph/tokenizer.py`, `atlas_morph/engine.py`, `web_dashboard/index.html`, and `web_dashboard/app.js`.
+3. Terminal Display Polish: Formatted token output with `textwrap.fill` (width=76, 4-space indentation) to ensure clean rendering in PowerShell/Bash without horizontal wrapping anomalies.
+4. Method Renaming: Introduced `_raw_natlas_bpe_tokenize` in `AtlasTokenizer` (with backward-compatible alias), explicitly reflecting that the raw baseline is N-ATLaS's native unaugmented tokenizer.
+5. Verification: All 44 automated unit tests pass in 0.637s.
+
+--------------------------------------------------------------------------------
+81. GIT DIFF SUMMARY (Follow-up 32)
+--------------------------------------------------------------------------------
+- Modified: `atlas_morph/tokenizer.py` (implemented `_raw_natlas_bpe_tokenize`, explicit N-ATLaS 8B docstrings, backward compatibility alias)
+- Modified: `atlas_morph/engine.py` (mapped baseline comparison to `_raw_natlas_bpe_tokenize` with `input_tokens_raw_natlas` telemetry key)
+- Modified: `atlas_morph/cli.py` (explicit CONTROL: Raw N-ATLaS 8B Baseline labeling; clean textwrap formatting for token arrays)
+- Modified: `web_dashboard/index.html` (updated column titles: "Control: Raw N-ATLaS 8B (Pre-ATLAS-MORPH)" vs "Treatment: N-ATLaS 8B + ATLAS-MORPH")
+- Modified: `web_dashboard/app.js` (clarified Raw N-ATLaS 8B pre-ATLAS-MORPH byte fallback logic)
+- Verification: 44 of 44 tests passing cleanly in 0.637s.
+================================================================================
