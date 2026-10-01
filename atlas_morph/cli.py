@@ -39,7 +39,7 @@ from atlas_morph.server import run_server
 def print_banner():
     banner = """
 ================================================================================
-🇳🇬 ATLAS-MORPH: Sovereign N-ATLaS Inference Acceleration Suite
+ATLAS-MORPH: Sovereign N-ATLaS Inference Acceleration Suite
 NAIC 2026 | Academia & Research Track | Problem Statement 01: Dev Tooling
 ================================================================================
 """
@@ -52,8 +52,8 @@ def cmd_tokenize(args):
     lang = args.lang
 
     tokenizer = AtlasTokenizer()
-    print(f"📝 Input Text: \"{text}\"")
-    print(f"🌐 Language Hint: {lang or 'auto'}\n")
+    print(f"Input Text: \"{text}\"")
+    print(f"Language Hint: {lang or 'auto'}\n")
 
     if args.compare:
         res = tokenizer.compare_tokenization(text, language=lang)
@@ -62,27 +62,27 @@ def cmd_tokenize(args):
         comp = res["comparison"]
 
         print("-" * 80)
-        print("📊 SIDE-BY-SIDE TOKENIZATION COMPARISON (CONTROL vs. ATLAS-MORPH)")
+        print("SIDE-BY-SIDE TOKENIZATION COMPARISON (CONTROL vs. ATLAS-MORPH)")
         print("-" * 80)
         print(f"CONTROL (Standard Llama-3 BPE):")
-        print(f"  • Token Count : {raw['tokens']}")
-        print(f"  • Fertility   : {raw['fertility']:.2f} tokens/word")
-        print(f"  • Est. Latency: {raw['estimated_latency_ms']} ms")
-        print(f"  • Est. KV VRAM: {raw['estimated_vram_mb']} MB")
-        print(f"  • Tokens: {res['raw_tokens']}")
+        print(f"  * Token Count : {raw['tokens']}")
+        print(f"  * Fertility   : {raw['fertility']:.2f} tokens/word")
+        print(f"  * Est. Latency: {raw['estimated_latency_ms']} ms")
+        print(f"  * Est. KV VRAM: {raw['estimated_vram_mb']} MB")
+        print(f"  * Tokens: {res['raw_tokens']}")
 
         print(f"\nATLAS-MORPH (Sovereign Acceleration):")
-        print(f"  • Token Count : {opt['tokens']}")
-        print(f"  • Fertility   : {opt['fertility']:.2f} tokens/word")
-        print(f"  • Est. Latency: {opt['estimated_latency_ms']} ms")
-        print(f"  • 4-Bit KV VRAM: {opt['estimated_vram_mb']} MB")
-        print(f"  • Tokens: {res['optimized_tokens']}")
+        print(f"  * Token Count : {opt['tokens']}")
+        print(f"  * Fertility   : {opt['fertility']:.2f} tokens/word")
+        print(f"  * Est. Latency: {opt['estimated_latency_ms']} ms")
+        print(f"  * 4-Bit KV VRAM: {opt['estimated_vram_mb']} MB")
+        print(f"  * Tokens: {res['optimized_tokens']}")
 
         print("-" * 80)
-        print(f"⚡ EFFICIENCY GAINS:")
-        print(f"  • Token Reduction : {comp['token_savings_percentage']}% ({res['token_savings']} tokens saved)")
-        print(f"  • Memory Savings  : {comp['memory_savings_percentage']} (via 4-bit Paged Cache)")
-        print(f"  • Speedup Factor  : {comp['speedup_factor']}")
+        print(f"EFFICIENCY GAINS:")
+        print(f"  * Token Reduction : {comp['token_savings_percentage']}% ({res['token_savings']} tokens saved)")
+        print(f"  * Memory Savings  : {comp['memory_savings_percentage']} (via 4-bit Paged Cache)")
+        print(f"  * Speedup Factor  : {comp['speedup_factor']}")
         print("-" * 80)
     else:
         tokens = tokenizer.tokenize(text, language=lang)
@@ -95,9 +95,9 @@ def cmd_generate(args):
     lang = args.lang
     max_tokens = args.max_tokens
 
-    print(f"🤖 Generating with N-ATLaS 8B + ATLAS-MORPH Acceleration...")
-    print(f"📥 Prompt: \"{prompt}\"")
-    print(f"⚙️  Max Tokens: {max_tokens} | Language: {lang or 'auto'}\n")
+    print(f"Generating with N-ATLaS 8B + ATLAS-MORPH Acceleration...")
+    print(f"Prompt: \"{prompt}\"")
+    print(f"Max Tokens: {max_tokens} | Language: {lang or 'auto'}\n")
 
     model = am.load("NCAIR1/N-ATLaS")
     t0 = time.perf_counter()
@@ -106,17 +106,17 @@ def cmd_generate(args):
 
     telem = result["telemetry"]
     print("=" * 80)
-    print("📤 N-ATLaS GENERATED OUTPUT:")
+    print("N-ATLaS GENERATED OUTPUT:")
     print("=" * 80)
     print(result["response"])
     print("=" * 80)
-    print(f"📈 TELEMETRY & INFERENCE SPEED:")
-    print(f"  • Generated Tokens   : {telem['generated_tokens']}")
-    print(f"  • Generation Speed   : {telem['tokens_per_second']} tokens/sec")
-    print(f"  • Total Latency      : {elapsed} ms")
-    print(f"  • Prompt Tokens Saved: {telem['tokens_saved_on_prompt']} tokens")
-    print(f"  • KV Cache VRAM Saved: {telem['vram_saved_mb']} MB (4-bit Paged)")
-    print(f"  • Acceleration Factor: {telem['speedup_factor']}")
+    print(f"TELEMETRY & INFERENCE SPEED:")
+    print(f"  * Generated Tokens   : {telem['generated_tokens']}")
+    print(f"  * Generation Speed   : {telem['tokens_per_second']} tokens/sec")
+    print(f"  * Total Latency      : {elapsed} ms")
+    print(f"  * Prompt Tokens Saved: {telem['tokens_saved_on_prompt']} tokens")
+    print(f"  * KV Cache VRAM Saved: {telem['vram_saved_mb']} MB (4-bit Paged)")
+    print(f"  * Acceleration Factor: {telem['speedup_factor']}")
     print("=" * 80)
 
 
@@ -128,14 +128,14 @@ def cmd_restore(args):
     restorer = AtlasDiacriticRestorer()
     restored, stats = restorer.restore_diacritics(text, language=lang)
 
-    print(f"💬 Original Text:  \"{text}\"")
-    print(f"✨ Restored Text:  \"{restored}\"")
-    print(f"📊 Restored Glyphs: {stats['restored_words']} words, {stats['confidence']} confidence")
+    print(f"Original Text:  \"{text}\"")
+    print(f"Restored Text:  \"{restored}\"")
+    print(f"Restored Glyphs: {stats['restored_words']} words, {stats['confidence']} confidence")
 
 
 def cmd_bench(args):
     print_banner()
-    print("🔬 Running Full Empirical Benchmark Suite across 60 Prompts & 6 Domains...\n")
+    print("Running Full Empirical Benchmark Suite across 60 Prompts & 6 Domains...\n")
     from benchmarks.run_all import main as run_benchmarks
     run_benchmarks()
 
@@ -143,7 +143,7 @@ def cmd_bench(args):
 def cmd_serve(args):
     print_banner()
     port = args.port or 8000
-    print(f"🚀 Starting Competition Inference Server on port {port}...")
+    print(f"Starting Competition Inference Server on port {port}...")
     run_server(port=port)
 
 

@@ -11,6 +11,14 @@ import json
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 import urllib.parse
 
+# Ensure Windows terminal outputs UTF-8 cleanly
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 # Ensure atlas_morph is in path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
@@ -63,7 +71,7 @@ class UnifiedSpaceHandler(AtlasRequestHandler):
 
 def main():
     print("=" * 80)
-    print("🇳🇬 ATLAS-MORPH: SOVEREIGN INFERENCE ACCELERATION SUITE")
+    print("ATLAS-MORPH: SOVEREIGN INFERENCE ACCELERATION SUITE")
     print(f"Deploying unified cloud interface on port {PORT}...")
     print("=" * 80)
 
@@ -74,7 +82,7 @@ def main():
     server_address = ("", PORT)
     httpd = HTTPServer(server_address, UnifiedSpaceHandler)
 
-    print(f"🚀 Cloud App & Speedometer Dashboard running at: http://localhost:{PORT}")
+    print(f"Cloud App & Speedometer Dashboard running at: http://localhost:{PORT}")
     print("API Endpoints available: /health, /process, /tokenize, /benchmark, /restore, /voice")
     print("Hugging Face Spaces compatible: YES")
     print("=" * 80)

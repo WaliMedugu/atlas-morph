@@ -157,7 +157,7 @@ def run_server(port: int = 8000, model_id: str = "NCAIR1/N-ATLaS"):
 
     server_address = ("", port)
     httpd = HTTPServer(server_address, AtlasRequestHandler)
-    logger.info(f"🚀 ATLAS-MORPH server running at http://localhost:{port}")
+    logger.info(f"ATLAS-MORPH server running at http://localhost:{port}")
     logger.info("Endpoints: /process, /tokenize, /benchmark, /restore, /voice, /health")
 
     try:

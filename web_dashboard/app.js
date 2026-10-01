@@ -61,7 +61,7 @@ function initElements() {
         gaugeSpeedup: document.getElementById("gaugeSpeedup"),
         backendStatus: document.getElementById("backendStatus"),
 
-        presetBtns: document.querySelectorAll(".preset-btn"),
+        presetBtns: document.querySelectorAll(".preset-btn, .segment"),
     };
 }
 
@@ -282,28 +282,28 @@ async function runGeneration() {
     const text = el.promptInput.value;
     if (!text.trim()) return;
     const maxTokens = parseInt(el.sliderTokens.value);
-    el.generationOutput.innerHTML = '<span style="color:#06b6d4">⚡ Generating accelerated response through N-ATLaS 8B...</span>';
+    el.generationOutput.innerHTML = '<span style="color:#2997ff">Generating accelerated response through N-ATLaS 8B on GPU...</span>';
 
     try {
         const res = await fetch(`${API_BASE}/process`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ prompt: text, max_new_tokens: maxTokens, language: currentLang }),
-            signal: AbortSignal.timeout(5000)
+            signal: AbortSignal.timeout(30000)
         });
         if (res.ok) {
             const data = await res.json();
             el.generationOutput.innerHTML = `
-                <div style="color:#10b981; font-weight:700; margin-bottom:6px;">✅ Response Generated (${data.tokens_generated} tokens in ${data.latency_ms} ms &bull; ${data.tokens_per_second} tok/s)</div>
-                <div style="line-height:1.6; color:#f8fafc;">${data.text}</div>
+                <div style="color:#30d158; font-weight:600; margin-bottom:8px;">Response Generated (${data.tokens_generated} tokens in ${data.latency_ms} ms &bull; ${data.tokens_per_second} tok/s)</div>
+                <div style="line-height:1.6; color:#f5f5f7;">${data.text}</div>
             `;
             return;
         } else {
             const err = await res.json().catch(() => ({}));
-            el.generationOutput.innerHTML = `<span style="color:#ef4444">⚠️ Backend Error: ${err.error || res.statusText}</span>`;
+            el.generationOutput.innerHTML = `<span style="color:#ff453a">Backend Error: ${err.error || res.statusText}</span>`;
         }
     } catch (e) {
-        el.generationOutput.innerHTML = `<span style="color:#ef4444">⚠️ Connection Error: Unable to reach ATLAS-MORPH backend at ${API_BASE}. Please ensure 'py app.py' is running.</span>`;
+        el.generationOutput.innerHTML = `<span style="color:#ff453a">Connection Error: Unable to reach ATLAS-MORPH backend at ${API_BASE}. Please ensure server is running.</span>`;
     }
 }
 
@@ -316,7 +316,7 @@ async function restoreTones() {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: text, language: currentLang === "whatsapp" ? "yor" : currentLang }),
-            signal: AbortSignal.timeout(1500)
+            signal: AbortSignal.timeout(3000)
         });
         if (res.ok) {
             const data = await res.json();
@@ -346,23 +346,23 @@ async function restoreTones() {
 }
 
 async function runVoiceDemo() {
-    el.generationOutput.innerHTML = '<span style="color:#06b6d4">🎙️ Capturing simulated Nigerian WhatsApp Voice Note (16kHz PCM)...</span>';
+    el.generationOutput.innerHTML = '<span style="color:#2997ff">Processing simulated Nigerian WhatsApp Voice Note (16kHz PCM)...</span>';
 
     try {
         const res = await fetch(`${API_BASE}/voice`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ audio: "simulated_voice_note.wav", language: currentLang === "whatsapp" ? "yor" : currentLang }),
-            signal: AbortSignal.timeout(2500)
+            signal: AbortSignal.timeout(5000)
         });
         if (res.ok) {
             const data = await res.json();
             const vad = data.vad_telemetry;
             el.generationOutput.innerHTML = `
-                <div style="color:#10b981; font-weight:700; margin-bottom:6px;">
-                    🎙️ Voice Note VAD Processed: ${vad.silence_removed_pct}% Silence Trimmed (${vad.original_duration_seconds}s ➔ ${vad.pruned_duration_seconds}s)
+                <div style="color:#30d158; font-weight:600; margin-bottom:8px;">
+                    Voice Note VAD Processed: ${vad.silence_removed_pct}% Silence Trimmed (${vad.original_duration_seconds}s &rarr; ${vad.pruned_duration_seconds}s)
                 </div>
-                <div style="color:#a7f3d0; margin-bottom:6px;"><strong>ASR Transcription:</strong> "${data.transcription}"</div>
+                <div style="color:#a7f3d0; margin-bottom:8px;"><strong>ASR Transcription:</strong> "${data.transcription}"</div>
                 <div><strong>Accelerated Response:</strong> ${data.generation ? (data.generation.response || JSON.stringify(data.generation)) : "Response ready."}</div>
             `;
             return;
@@ -372,10 +372,10 @@ async function runVoiceDemo() {
     // Simulated fallback
     setTimeout(() => {
         el.generationOutput.innerHTML = `
-            <div style="color:#10b981; font-weight:700; margin-bottom:6px;">
-                🎙️ Voice Note VAD Processed: 38.2% Silence Trimmed (3.4s ➔ 2.1s) &bull; Acoustic Tokens Reduced by 38.2%
+            <div style="color:#30d158; font-weight:600; margin-bottom:8px;">
+                Voice Note VAD Processed: 38.2% Silence Trimmed (3.4s &rarr; 2.1s) &bull; Acoustic Tokens Reduced by 38.2%
             </div>
-            <div style="color:#a7f3d0; margin-bottom:6px;">
+            <div style="color:#a7f3d0; margin-bottom:8px;">
                 <strong>ASR Transcription:</strong> "Ẹ káàárọ̀, báwo ni mo ṣe lè tọ́jú àrùn ibà fún ọmọ mi?"
             </div>
             <div>
