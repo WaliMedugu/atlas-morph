@@ -51,7 +51,7 @@ Here is a simple breakdown of every component inside the project and what job it
 | `web_dashboard/` | **Interactive Visual Studio:** The web dashboard styled with the Warm Editorial brand theme (Anthropic Serif/Sans/Mono) featuring side-by-side comparative diagnostics and live GPU inference. |
 | `benchmarks/` | **Scientific Benchmarking Suite:** Contains 60 evaluation prompts across Yorùbá, Hausa, Igbo, and English measuring real speedup, fertility, and memory savings. |
 | `docs/` | **Competition Submission Dossiers:** Formal academic whitepapers, team profiles, video walkthrough scripts, and commercial roadmaps for NAIC 2026 judges. |
-| `tests/` | **Automated Quality Verification:** 44 automated unit and integration tests verifying 100% code correctness and system stability. |
+| `tests/` | **Automated Quality Verification:** 46 automated unit and integration tests verifying 100% code correctness and system stability. |
 
 ---
 
@@ -117,7 +117,7 @@ This section is a clear, step-by-step checklist specifically prepared for **Mutm
 [ ] Test 4: WhatsApp Voice Note VAD Silence Pruning
 [ ] Test 5: Live GPU Neural Text Generation (No Code-Switching)
 [ ] Test 6: Terminal CLI Command Verification
-[ ] Test 7: Automated 44-Test Suite Execution
+[ ] Test 7: Automated 46-Test Suite Execution
 ```
 
 ---
@@ -185,17 +185,17 @@ py -3.13 -m atlas_morph.cli bench
 
 ---
 
-### Test 7: Automated 44-Test Suite Execution
+### Test 7: Automated 46-Test Suite Execution
 Run the automated test runner in your terminal:
 ```bash
 py -3.13 -m unittest discover -s tests -v
 ```
 **Expected Result:**
 ```
-Ran 44 tests in 0.58s
+Ran 46 tests in 0.65s
 OK
 ```
-All 44 unit and integration tests must pass cleanly with 0 failures.
+All 46 unit and integration tests must pass cleanly with 0 failures.
 
 ---
 
@@ -212,7 +212,7 @@ Evaluated across 60 authentic multilingual test prompts spanning Healthcare, Agr
 | **Tokenization Tax vs English** | +140.7% cost premium | **+87.3% cost premium** | **-53.4% tax slashed** |
 | **Active KV-Cache Footprint** | 128 KB per token | **32 KB per token** | **75.0% VRAM saved** |
 | **Effective Inference Throughput**| 1.0x baseline | **2.8x accelerated** | **180% higher throughput** |
-| **Minimum Hardware Requirement** | 18GB+ VRAM (A100/A10 Cloud) | **8GB–12GB VRAM (RTX 3060/4060)** | **Democratized for Nigerian Labs** |
+| **Minimum Hardware Requirement** | 18GB+ VRAM (A100/A10 Cloud) | **8GB-12GB VRAM (RTX 3060/4060)** | **Democratized for Nigerian Labs** |
 
 ---
 
@@ -224,7 +224,7 @@ The `docs/` directory contains all formal submission deliverables and compiled p
 - `docs/02_N_ATLAS_INTEGRATION_EVIDENCE.md`: Real Model Traces and Autoregressive Decoding Telemetry.
 - `docs/03_REAL_WORLD_VALIDATION.md` (`.pdf`): Empirical Multi-Laboratory Evaluation across 60 Prompts.
 - `docs/04_TECHNICAL_DOCUMENTATION.md` (`.pdf`): Peer-Reviewed Style Academic Whitepaper.
-- `docs/05_VIDEO_DEMONSTRATION_SCRIPT.md`: 3–5 Minute Video Walkthrough Script.
+- `docs/05_VIDEO_DEMONSTRATION_SCRIPT.md`: 3-5 Minute Video Walkthrough Script.
 - `docs/06_TEAM_PROFILE.md` (`.pdf`): Academic Profiles for Medugu Wali, Mutmainnah Magaji, Ojo Timothy, and Supervisor Mrs. Hauwa Ibrahim Aminu.
 - `docs/07_INSTITUTIONAL_ENDORSEMENT_LETTER.md` (`.pdf`): Nile University Department of Computer Science Endorsement Letter.
 - `docs/08_COMMERCIAL_PILOT_ROADMAP.md` (`.pdf`): Unit Economics and Deployment Roadmap for Healthcare & Agriculture.
@@ -282,7 +282,7 @@ atlas-morph/
 │   ├── semantic_preservation_eval.py # Cosine embedding similarity evaluator
 │   ├── benchmark_results.json     # Empirical benchmark dataset
 │   └── benchmark_report.md        # Technical benchmark report
-├── tests/                         # Automated Unit & Integration Tests (44 Tests, 100% Pass)
+├── tests/                         # Automated Unit & Integration Tests (46 Tests, 100% Pass)
 │   ├── test_normalizer.py         # Unicode and contraction tests
 │   ├── test_tokenizer.py          # Subword and metrics tests
 │   ├── test_kv_cache.py           # 4-bit memory allocation tests

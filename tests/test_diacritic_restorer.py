@@ -37,6 +37,25 @@ class TestAtlasDiacriticRestorer(unittest.TestCase):
         self.assertIn("ọgwụ", restored)
         self.assertIn("ọrụ", restored)
 
+    def test_partial_diacritic_restoration(self):
+        """Test partially accented word 'púpọ' is restored to full tonal form 'púpọ̀'."""
+        raw = "púpọ"
+        restored, _ = self.restorer.restore_diacritics(raw, language="yor")
+        self.assertEqual(restored, "púpọ̀")
+
+    def test_whatsapp_preset_full_restoration(self):
+        """Test full informal WhatsApp preset restoration."""
+        raw = "bawo ni gbogbo nkan se n lo lonii? e kaaro o, omode naa ni iba pupo ati iko."
+        restored, stats = self.restorer.restore_diacritics(raw, language="yor")
+        self.assertIn("púpọ̀", restored)
+        self.assertIn("báwo", restored)
+        self.assertIn("nǹkan", restored)
+        self.assertIn("lónìí", restored)
+        self.assertIn("ọmọdé", restored)
+        self.assertIn("náà", restored)
+        self.assertIn("ẹ káàárọ̀", restored)
+        self.assertGreater(stats["words_restored"], 8)
+
 
 if __name__ == "__main__":
     unittest.main()

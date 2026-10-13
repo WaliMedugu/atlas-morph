@@ -329,16 +329,29 @@ async function restoreTones() {
 
     // Fallback client-side restorer dictionary
     let restored = text
-        .replace(/\bbawo\b/gi, "báwo")
+        .replace(/\be kaaro o\b/gi, "ẹ káàárọ̀ o")
         .replace(/\be kaaro\b/gi, "ẹ káàárọ̀")
+        .replace(/\bbawo ni\b/gi, "báwo ni")
+        .replace(/\bbawo\b/gi, "báwo")
         .replace(/\bomode naa\b/gi, "ọmọdé náà")
         .replace(/\bomode\b/gi, "ọmọdé")
+        .replace(/\bọmọde\b/gi, "ọmọdé")
         .replace(/\bnaa\b/gi, "náà")
         .replace(/\biba\b/gi, "ibà")
+        .replace(/\bpúpọ\b/gi, "púpọ̀")
         .replace(/\bpupo\b/gi, "púpọ̀")
+        .replace(/\bse n lo\b/gi, "ṣe ń lọ")
+        .replace(/\bse\b/gi, "ṣe")
+        .replace(/\blo\b/gi, "lọ")
+        .replace(/\blonii\b/gi, "lónìí")
+        .replace(/\bloni\b/gi, "lónìí")
         .replace(/\bati\b/gi, "àti")
         .replace(/\biko\b/gi, "ikọ́")
-        .replace(/\bnkan\b/gi, "nǹkan");
+        .replace(/\bnkan\b/gi, "nǹkan")
+        .replace(/\bkosi\b/gi, "kòsí")
+        .replace(/\bdada\b/gi, "dáadáa")
+        .replace(/\badupe\b/gi, "adúpẹ́")
+        .replace(/\bwahala\b/gi, "wàhálà");
     
     el.promptInput.value = restored;
     onTextInput();

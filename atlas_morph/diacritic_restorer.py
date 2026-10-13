@@ -14,8 +14,24 @@ The AtlasDiacriticRestorer:
    even on plain ASCII WhatsApp messages.
 """
 
+import unicodedata
 import re
 from typing import Dict, List, Tuple, Optional, Any
+
+
+def _strip_diacritics(text: str) -> str:
+    """
+    Strips combining diacritical marks, tone accents, and sub-dots for canonical matching.
+    e.g., 'púpọ' -> 'pupo', 'ọmọde' -> 'omode', 'kòsí' -> 'kosi'.
+    """
+    decomposed = unicodedata.normalize("NFD", text)
+    stripped = "".join(c for c in decomposed if unicodedata.category(c) != "Mn")
+    trans = str.maketrans({
+        "ẹ": "e", "ọ": "o", "ṣ": "s",
+        "ị": "i", "ụ": "u", "ṅ": "n",
+        "ƙ": "k", "ɗ": "d", "ɓ": "b", "ƴ": "y"
+    })
+    return stripped.translate(trans).lower()
 
 
 class AtlasDiacriticRestorer:
@@ -23,11 +39,12 @@ class AtlasDiacriticRestorer:
     Automatic Tone and Sub-dot Restorer for Informal / ASCII African Text.
     """
 
-    # Comprehensive lexicon mapping unaccented ASCII words to canonical diacritics
+    # Comprehensive lexicon mapping unaccented ASCII / partially accented words to canonical diacritics
     YORUBA_RESTORATION_LEXICON: Dict[str, str] = {
         # Greetings & Daily Dialogue
         "bawo": "báwo",
         "e kaaro": "ẹ káàárọ̀",
+        "e kaaro o": "ẹ káàárọ̀ o",
         "kaaro": "káàárọ̀",
         "e kaasan": "ẹ káàsán",
         "e ku irole": "ẹ kú ìrọ̀lẹ́",
@@ -36,6 +53,7 @@ class AtlasDiacriticRestorer:
         "bawo ni": "báwo ni",
         "se dada ni": "ṣé dáadáa ni",
         "dada": "dáadáa",
+        "daadaa": "dáadáa",
         "gbogbo": "gbogbo",
         "nkan": "nǹkan",
         "ko si": "kòsí",
@@ -45,6 +63,15 @@ class AtlasDiacriticRestorer:
         "e se": "ẹ ṣé",
         "adupe": "adúpẹ́",
         "pupo": "púpọ̀",
+        "púpọ": "púpọ̀",
+        "lonii": "lónìí",
+        "loni": "lónìí",
+        "se": "ṣe",
+        "lo": "lọ",
+        "se n lo": "ṣe ń lọ",
+        "n lo": "ń lọ",
+        "naa": "náà",
+        "ati": "àti",
         # Healthcare & Medical
         "omode": "ọmọdé",
         "omode naa": "ọmọdé náà",
@@ -85,7 +112,7 @@ class AtlasDiacriticRestorer:
         "eto": "ètò",
         "tuntun": "tuntun",
         "agbara": "agbára",
-        # Common particles & verbs
+        # Common particles, verbs & nouns
         "lati": "láti",
         "pelu": "pẹ̀lú",
         "ninu": "nínú",
@@ -94,6 +121,9 @@ class AtlasDiacriticRestorer:
         "sugbon": "ṣùgbọ́n",
         "nitori": "nítorí",
         "kosi nkan": "kòsí nǹkan",
+        "ise": "iṣẹ́",
+        "oro": "ọ̀rọ̀",
+        "won": "wọ́n",
     }
 
     HAUSA_RESTORATION_LEXICON: Dict[str, str] = {
@@ -138,9 +168,9 @@ class AtlasDiacriticRestorer:
 
     def restore_diacritics(self, text: str, language: str = "yor") -> Tuple[str, Dict[str, Any]]:
         """
-        Restore missing tone marks and sub-dots to unaccented ASCII text.
+        Restore missing tone marks and sub-dots to unaccented ASCII or partially accented text.
         
-        :param text: Raw unaccented string (e.g., "bawo ni gbogbo nkan").
+        :param text: Raw unaccented/partial string (e.g., "bawo ni gbogbo nkan" or "omode naa ni pupo").
         :param language: Language code ('yor', 'hau', 'ibo').
         :return: (restored_text, restoration_telemetry)
         """
@@ -158,7 +188,7 @@ class AtlasDiacriticRestorer:
                     restored = pattern.sub(self.YORUBA_RESTORATION_LEXICON[phrase], restored)
                     restored_count += len(phrase.split())
 
-            # Single word pass
+            # Single word pass with direct and stripped-fallback matching
             words = restored.split()
             new_words = []
             for w in words:
@@ -166,9 +196,15 @@ class AtlasDiacriticRestorer:
                 punct_prefix = re.match(r"^[^\w]*", w).group(0)
                 punct_suffix = re.search(r"[^\w]*$", w).group(0)
 
+                stripped_w = _strip_diacritics(clean_w)
+                canon = None
                 if clean_w in self.YORUBA_RESTORATION_LEXICON and not " " in clean_w:
                     canon = self.YORUBA_RESTORATION_LEXICON[clean_w]
-                    # Preserve uppercase first letter if present
+                elif stripped_w in self.YORUBA_RESTORATION_LEXICON and not " " in stripped_w:
+                    canon = self.YORUBA_RESTORATION_LEXICON[stripped_w]
+
+                if canon and canon != clean_w:
+                    # Preserve uppercase first letter if present in source word
                     if w and w[0].isupper():
                         canon = canon[0].upper() + canon[1:]
                     new_words.append(f"{punct_prefix}{canon}{punct_suffix}")
