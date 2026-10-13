@@ -60,14 +60,24 @@ Here is a simple breakdown of every component inside the project and what job it
 Follow these easy steps to get the entire project running on your computer in under 2 minutes:
 
 ### Prerequisites
-- Python 3.10, 3.11, 3.12, or 3.13 installed ([Download Python](https://www.python.org/downloads/)).
-- Windows PowerShell, Command Prompt, macOS Terminal, or Linux Bash.
+- **Python 3.10, 3.11, 3.12, or 3.13** installed ([Download Python here](https://www.python.org/downloads/)).
+- **Git** installed — needed to download the project files ([Download Git for Windows](https://git-scm.com/download/win) | [Download Git for macOS/Linux](https://git-scm.com/downloads)).
+  - **Alternative (no Git):** On the [GitHub page](https://github.com/WaliMedugu/atlas-morph), click the green **Code** button → **Download ZIP** → extract the folder.
 
-### Step 1: Clone the Repository
+**How to open a terminal (command window):**
+- **Windows:** Press `Win + R`, type `cmd`, press Enter — OR search "Command Prompt" in the Start menu.
+- **macOS:** Press `Cmd + Space`, type `Terminal`, press Enter.
+- **Linux:** Press `Ctrl + Alt + T`.
+
+### Step 1: Download the Project Files
+In your terminal, type the following two commands (pressing Enter after each):
 ```bash
 git clone https://github.com/WaliMedugu/atlas-morph.git
 cd atlas-morph
 ```
+*(This downloads all project files to your computer and enters the project folder.)*
+
+> **If you downloaded the ZIP instead:** Extract it, then in your terminal navigate into the extracted folder with: `cd atlas-morph-main`
 
 ### Step 2: Install Package Dependencies
 ```bash
@@ -77,10 +87,13 @@ pip install -e .
 
 ### Step 3: Launch the Visual Web Dashboard
 ```bash
-# Starts both the API backend and the interactive visual dashboard
-py app.py
+# Try these in order until one works:
+py app.py          # Windows (python.org installer)
+python app.py      # Windows alternative or Conda
+python3 app.py     # macOS or Linux
 ```
-*(On macOS/Linux, use `python3 app.py`)*
+You will see a message saying: `Cloud App & Speedometer Dashboard running at: http://localhost:7860`
+Leave this terminal window open — it is running the server.
 
 ### Step 4: Open in Your Browser
 Open your browser and navigate to:
